@@ -3,7 +3,6 @@
 import { useState, useMemo } from "react";
 import Image from "next/image";
 import MainNav from "../components/MainNav";
-import LanguageSwitcher from "../components/LanguageSwitcher";
 
 const currency = new Intl.NumberFormat("sk-SK", {
   style: "currency",
@@ -12,88 +11,272 @@ const currency = new Intl.NumberFormat("sk-SK", {
 });
 
 type ProjectType = "family" | "renovation" | "commercial";
+type StandardType = "standard" | "premium";
+
+interface CalcResult {
+  buildMin: number;
+  buildMax: number;
+  demoMin: number;
+  demoMax: number;
+  projectDocsMin: number;
+  projectDocsMax: number;
+  vrMin: number;
+  vrMax: number;
+  ourFeeMin: number;
+  ourFeeMax: number;
+  totalMin: number;
+  totalMax: number;
+}
 
 export default function CalculatorPage() {
   const [projectType, setProjectType] = useState<ProjectType>("family");
   const [area, setArea] = useState<string>("");
-  const [standard, setStandard] = useState<"standard" | "premium">("standard");
+  const [standard, setStandard] = useState<StandardType>("standard");
   const [hasDemolition, setHasDemolition] = useState<boolean>(false);
   const [demolitionArea, setDemolitionArea] = useState<string>("");
+  const [includeProjectDocs, setIncludeProjectDocs] = useState<boolean>(true);
+  const [includeVr, setIncludeVr] = useState<boolean>(false);
 
-  const result = useMemo(() => {
+  const result = useMemo<CalcResult | null>(() => {
     const a = Number(area) || 0;
     const d = hasDemolition ? Number(demolitionArea) || 0 : 0;
 
-    if (a <= 0) {
-      return null;
-    }
+    if (a <= 0) return null;
 
-    // ZÁKLAD – CENA VÝSTAVBY / REKONŠTRUKCIE PODĽA TYPU
+    // ALAP – építés / felújítás irányár m²-re
     let baseMinPerM2 = 0;
     let baseMaxPerM2 = 0;
 
     switch (projectType) {
       case "family":
-        // rodinný dom – novostavba (hrubý + štandard dokončenie)
-        baseMinPerM2 = 1350;
-        baseMaxPerM2 = 1750;
+        // új családi ház – kulcsrakész, standard
+        baseMinPerM2 = 1200;
+        baseMaxPerM2 = 1600;
         break;
       case "renovation":
-        // komplexná rekonštrukcia bytu / domu
-        baseMinPerM2 = 550;
-        baseMaxPerM2 = 950;
+        // komplex lakás / ház felújítás
+        baseMinPerM2 = 500;
+        baseMaxPerM2 = 850;
         break;
       case "commercial":
-        // komerčné / priemyselné objekty
-        baseMinPerM2 = 950;
-        baseMaxPerM2 = 1450;
+        // csarnok, raktár, kereskedelmi / ipari épület
+        baseMinPerM2 = 900;
+        baseMaxPerM2 = 1350;
         break;
     }
 
-    // ŠTANDARD vs PREMIUM
+    // STANDARD vs PREMIUM
     let factorMin = 1;
     let factorMax = 1;
     if (standard === "premium") {
-      factorMin = 1.12;
-      factorMax = 1.25;
+      factorMin = 1.1;
+      factorMax = 1.2;
     }
 
     const buildMin = a * baseMinPerM2 * factorMin;
     const buildMax = a * baseMaxPerM2 * factorMax;
 
-    // DEMOLÁCIA (ak je)
-    // orientačne – vrátane odvozu odpadu, strojov atď.
-    const demoMinPerM2 = 60;
-    const demoMaxPerM2 = 110;
+    // BONTÁS (ha van)
+    const demoMinPerM2 = 45;
+    const demoMaxPerM2 = 90;
 
     const demoMin = d > 0 ? d * demoMinPerM2 : 0;
     const demoMax = d > 0 ? d * demoMaxPerM2 : 0;
 
-    // NAŠA PRÁCA – riadenie projektu, koordinácia, kontrola
-    const subtotalMin = buildMin + demoMin;
-    const subtotalMax = buildMax + demoMax;
+    // Alap kivitelezési összeg (építés + bontás)
+    const baseSubtotalMin = buildMin + demoMin;
+    const baseSubtotalMax = buildMax + demoMax;
 
-    const ourFeeMin = subtotalMin * 0.08; // 8 %
-    const ourFeeMax = subtotalMax * 0.12; // 12 %
+    // Projektdokumentáció (ha kéri)
+    let projectDocsMin = 0;
+    let projectDocsMax = 0;
 
-    const totalMin = subtotalMin + ourFeeMin;
-    const totalMax = subtotalMax + ourFeeMax;
+    if (includeProjectDocs) {
+      // 5–7 % az építés összegéből – vonzó, de reális
+      projectDocsMin = baseSubtotalMin * 0.05;
+      projectDocsMax = baseSubtotalMax * 0.07;
+    }
+
+    // VR / 3D vizualizáció (ha kéri) – projekt típus szerint
+    let vrMin = 0;
+    let vrMax = 0;
+
+    if (includeVr) {
+      switch (projectType) {
+        case "family":
+          vrMin = 900;
+          vrMax = 1800;
+          break;
+        case "renovation":
+          vrMin = 600;
+          vrMax = 1200;
+          break;
+        case "commercial":
+          vrMin = 1500;
+          vrMax = 2800;
+          break;
+      }
+    }
+
+    // ProForm díj – projekt irányítás, koordináció, minőségellenőrzés
+    const subtotalWithExtrasMin = baseSubtotalMin + projectDocsMin + vrMin;
+    const subtotalWithExtrasMax = baseSubtotalMax + projectDocsMax + vrMax;
+
+    const ourFeeMin = subtotalWithExtrasMin * 0.07; // 7 %
+    const ourFeeMax = subtotalWithExtrasMax * 0.1; // 10 %
+
+    const totalMin = subtotalWithExtrasMin + ourFeeMin;
+    const totalMax = subtotalWithExtrasMax + ourFeeMax;
 
     return {
       buildMin,
       buildMax,
       demoMin,
       demoMax,
+      projectDocsMin,
+      projectDocsMax,
+      vrMin,
+      vrMax,
       ourFeeMin,
       ourFeeMax,
       totalMin,
       totalMax,
     };
-  }, [projectType, area, standard, hasDemolition, demolitionArea]);
+  }, [
+    projectType,
+    area,
+    standard,
+    hasDemolition,
+    demolitionArea,
+    includeProjectDocs,
+    includeVr,
+  ]);
+
+  // külön függvényben – így TS tudja, hogy itt már biztosan van result
+  const renderResult = () => {
+    if (!result) {
+      return (
+        <p className="text-sm text-[#6b7280]">
+          Zadajte <strong>úžitkovú plochu</strong>, vyberte typ projektu a
+          nastavte možnosti. Kalkulátor vám zobrazí orientačný rozpočet v
+          atraktívnom, ale reálnom pásme.
+        </p>
+      );
+    }
+
+    const {
+      buildMin,
+      buildMax,
+      demoMin,
+      demoMax,
+      projectDocsMin,
+      projectDocsMax,
+      vrMin,
+      vrMax,
+      ourFeeMin,
+      ourFeeMax,
+      totalMin,
+      totalMax,
+    } = result;
+
+    return (
+      <div className="space-y-3 text-sm text-[#374151]">
+        <div className="flex items-baseline justify-between gap-4 border-b border-[#e5e7eb] pb-2.5">
+          <span className="text-xs uppercase tracking-[0.16em] text-[#6b7280]">
+            Stavebné práce
+          </span>
+          <div className="text-right">
+            <div className="font-semibold">
+              {currency.format(buildMin)} – {currency.format(buildMax)}
+            </div>
+            <div className="text-[11px] text-[#9ca3af]">
+              podľa typu projektu a štandardu
+            </div>
+          </div>
+        </div>
+
+        {demoMin > 0 && (
+          <div className="flex items-baseline justify-between gap-4 border-b border-[#e5e7eb] pb-2.5">
+            <span className="text-xs uppercase tracking-[0.16em] text-[#6b7280]">
+              Demolácia
+            </span>
+            <div className="text-right">
+              <div className="font-semibold">
+                {currency.format(demoMin)} – {currency.format(demoMax)}
+              </div>
+              <div className="text-[11px] text-[#9ca3af]">
+                búracie práce + odvoz odpadu
+              </div>
+            </div>
+          </div>
+        )}
+
+        {projectDocsMin > 0 && (
+          <div className="flex items-baseline justify-between gap-4 border-b border-[#e5e7eb] pb-2.5">
+            <span className="text-xs uppercase tracking-[0.16em] text-[#6b7280]">
+              Projektdokumentácia
+            </span>
+            <div className="text-right">
+              <div className="font-semibold">
+                {currency.format(projectDocsMin)} –{" "}
+                {currency.format(projectDocsMax)}
+              </div>
+              <div className="text-[11px] text-[#9ca3af]">
+                architektúra + profesie, orientačne 5–7 % stavby
+              </div>
+            </div>
+          </div>
+        )}
+
+        {vrMin > 0 && (
+          <div className="flex items-baseline justify-between gap-4 border-b border-[#e5e7eb] pb-2.5">
+            <span className="text-xs uppercase tracking-[0.16em] text-[#6b7280]">
+              VR / 3D vizualizácia
+            </span>
+            <div className="text-right">
+              <div className="font-semibold">
+                {currency.format(vrMin)} – {currency.format(vrMax)}
+              </div>
+              <div className="text-[11px] text-[#9ca3af]">
+                kompletný virtuálny prechod projektu
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div className="flex items-baseline justify-between gap-4 border-b border-[#e5e7eb] pb-2.5">
+          <span className="text-xs uppercase tracking-[0.16em] text-[#6b7280]">
+            Naša práca
+          </span>
+          <div className="text-right">
+            <div className="font-semibold">
+              {currency.format(ourFeeMin)} – {currency.format(ourFeeMax)}
+            </div>
+            <div className="text-[11px] text-[#9ca3af]">
+              projektové riadenie, koordinácia, kontrola kvality
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-2 pt-3 border-t border-[#e5e7eb] flex items-baseline justify-between gap-4">
+          <span className="text-xs uppercase tracking-[0.2em] text-[#111827]">
+            Celkový orientačný rozpočet
+          </span>
+          <div className="text-right">
+            <div className="text-base md:text-lg font-bold bg-gradient-to-r from-[#1f4fa5] via-[#2563eb] to-[#3b82f6] text-transparent bg-clip-text">
+              {currency.format(totalMin)} – {currency.format(totalMax)}
+            </div>
+            <div className="text-[11px] text-[#9ca3af]">
+              pásmo, v ktorom sa typicky pohybujú podobné projekty
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <>
-      <LanguageSwitcher />
       <MainNav />
 
       <main className="min-h-screen bg-[#f5f7fb] text-slate-900 relative overflow-hidden">
@@ -103,7 +286,7 @@ export default function CalculatorPage() {
         <div className="pointer-events-none absolute bottom-[-260px] left-1/4 w-[460px] h-[460px] rounded-full bg-[#e0e6f5] blur-[180px] opacity-80" />
 
         {/* HERO + kalkulátor */}
-        <section className="relative w-full py-20 md:py-24">
+        <section className="relative w-full pt-24 pb-16 md:pt-28 md:pb-24">
           <div className="max-w-6xl mx-auto px-4 md:px-6 relative z-10">
             <div className="grid lg:grid-cols-[1.1fr,0.9fr] gap-10 items-start">
               {/* BAL – szöveg + form */}
@@ -112,9 +295,10 @@ export default function CalculatorPage() {
                   Orientačný kalkulátor stavebných nákladov
                 </h1>
                 <p className="text-[#4b5563] text-sm md:text-base mb-6 max-w-2xl">
-                  Tento kalkulátor vám dá <strong>rýchly prehľad</strong> o možnom
-                  rozpočte pre váš projekt v podmienkach juhozápadného Slovenska.
-                  Ide o orientačné hodnoty – konkrétnu ponuku pripravíme po osobnej
+                  Tento kalkulátor vám dá{" "}
+                  <strong>rýchly a realistický prehľad</strong> o možnom rozpočte
+                  pre váš projekt v podmienkach juhozápadného Slovenska. Ide o
+                  orientačné hodnoty – konkrétnu ponuku pripravíme po osobnej
                   konzultácii.
                 </p>
 
@@ -164,7 +348,7 @@ export default function CalculatorPage() {
                     </div>
                   </div>
 
-                  {/* Plocha + štandard */}
+                  {/* Plocha + standard */}
                   <div className="grid sm:grid-cols-[1.2fr,0.9fr] gap-4">
                     <div>
                       <label className="block text-xs font-semibold text-[#6b7280] mb-1.5 uppercase tracking-[0.14em]">
@@ -218,22 +402,20 @@ export default function CalculatorPage() {
                     </div>
                   </div>
 
-                  {/* Demolácia */}
-                  <div className="border-t border-[#e2e8f0] pt-4">
-                    <div className="flex items-center justify-between mb-2.5">
-                      <label className="flex items-center gap-2 text-sm font-semibold text-[#1f2937]">
-                        <input
-                          type="checkbox"
-                          checked={hasDemolition}
-                          onChange={(e) => setHasDemolition(e.target.checked)}
-                          className="h-4 w-4 rounded border-[#cbd5f0] text-[#2563eb] focus:ring-[#bfdbfe]"
-                        />
-                        Je potrebné aj odstránenie / demolácia existujúceho objektu?
-                      </label>
-                    </div>
+                  {/* Demoláció */}
+                  <div className="border-t border-[#e2e8f0] pt-4 space-y-3">
+                    <label className="flex items-center gap-2 text-sm font-semibold text-[#1f2937]">
+                      <input
+                        type="checkbox"
+                        checked={hasDemolition}
+                        onChange={(e) => setHasDemolition(e.target.checked)}
+                        className="h-4 w-4 rounded border-[#cbd5f0] text-[#2563eb] focus:ring-[#bfdbfe]"
+                      />
+                      Je potrebné aj odstránenie / demolácia existujúceho objektu?
+                    </label>
 
                     {hasDemolition && (
-                      <div className="mt-2">
+                      <div>
                         <label className="block text-xs font-semibold text-[#6b7280] mb-1.5 uppercase tracking-[0.14em]">
                           Odhadovaná plocha na demoláciu
                         </label>
@@ -251,94 +433,50 @@ export default function CalculatorPage() {
                           </span>
                         </div>
                         <p className="mt-1 text-[11px] text-[#9ca3af]">
-                          Zahŕňa búracie práce, stroje a odvoz odpadu (orientačne).
+                          Zahŕňa búracie práce, stroje a odvoz odpadu
+                          (orientačne).
                         </p>
                       </div>
                     )}
                   </div>
 
-                  {/* Info */}
+                  {/* Projekt + VR opciók */}
+                  <div className="border-t border-[#e2e8f0] pt-4 space-y-2">
+                    <label className="flex items-center gap-2 text-sm font-semibold text-[#1f2937]">
+                      <input
+                        type="checkbox"
+                        checked={includeProjectDocs}
+                        onChange={(e) => setIncludeProjectDocs(e.target.checked)}
+                        className="h-4 w-4 rounded border-[#cbd5f0] text-[#2563eb] focus:ring-[#bfdbfe]"
+                      />
+                      Projektdokumentácia (architektúra, profesie)
+                    </label>
+                    <label className="flex items-center gap-2 text-sm font-semibold text-[#1f2937]">
+                      <input
+                        type="checkbox"
+                        checked={includeVr}
+                        onChange={(e) => setIncludeVr(e.target.checked)}
+                        className="h-4 w-4 rounded border-[#cbd5f0] text-[#2563eb] focus:ring-[#bfdbfe]"
+                      />
+                      VR / 3D vizualizácia projektu
+                    </label>
+                  </div>
+
                   <p className="text-[11px] text-[#9ca3af]">
-                    Výsledky sú orientačné – finálna cena závisí od projektu, materiálov
-                    a konkrétneho zadania. Presnú ponuku pripravíme po konzultácii.
+                    Výsledky sú orientačné – finálna cena závisí od projektu,
+                    materiálov a konkrétneho zadania. Presnú ponuku pripravíme po
+                    krátkej konzultácii a prehliadke podkladov.
                   </p>
                 </div>
               </div>
 
               {/* JOBB – eredmény + grafika */}
               <div className="space-y-4 md:space-y-5">
-                {/* Eredmény kártya */}
                 <div className="bg-white/95 rounded-2xl border border-[#d4ddf4] shadow-[0_18px_50px_rgba(148,163,184,0.5)] p-5 md:p-6">
                   <h2 className="text-lg md:text-xl font-semibold mb-4 text-[#1f2937]">
                     Odhad nákladov
                   </h2>
-
-                  {!result ? (
-                    <p className="text-sm text-[#6b7280]">
-                      Zadajte <strong>úžitkovú plochu</strong>, vyberte typ projektu a
-                      prípadne demoláciu. Kalkulátor vám zobrazí orientačné náklady.
-                    </p>
-                  ) : (
-                    <div className="space-y-3 text-sm text-[#374151]">
-                      <div className="flex items-baseline justify-between gap-4 border-b border-[#e5e7eb] pb-2.5">
-                        <span className="text-xs uppercase tracking-[0.16em] text-[#6b7280]">
-                          Stavebné práce
-                        </span>
-                        <div className="text-right">
-                          <div className="font-semibold">
-                            {currency.format(result.buildMin)} – {currency.format(result.buildMax)}
-                          </div>
-                          <div className="text-[11px] text-[#9ca3af]">
-                            podľa typu projektu a štandardu
-                          </div>
-                        </div>
-                      </div>
-
-                      {result.demoMin > 0 && (
-                        <div className="flex items-baseline justify-between gap-4 border-b border-[#e5e7eb] pb-2.5">
-                          <span className="text-xs uppercase tracking-[0.16em] text-[#6b7280]">
-                            Demolácia
-                          </span>
-                          <div className="text-right">
-                            <div className="font-semibold">
-                              {currency.format(result.demoMin)} – {currency.format(result.demoMax)}
-                            </div>
-                            <div className="text-[11px] text-[#9ca3af]">
-                              búracie práce + odvoz odpadu
-                            </div>
-                          </div>
-                        </div>
-                      )}
-
-                      <div className="flex items-baseline justify-between gap-4 border-b border-[#e5e7eb] pb-2.5">
-                        <span className="text-xs uppercase tracking-[0.16em] text-[#6b7280]">
-                          Naša práca
-                        </span>
-                        <div className="text-right">
-                          <div className="font-semibold">
-                            {currency.format(result.ourFeeMin)} – {currency.format(result.ourFeeMax)}
-                          </div>
-                          <div className="text-[11px] text-[#9ca3af]">
-                            projektové riadenie, koordinácia, kontrola kvality
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="mt-2 pt-3 border-t border-[#e5e7eb] flex items-baseline justify-between gap-4">
-                        <span className="text-xs uppercase tracking-[0.2em] text-[#111827]">
-                          Celkový orientačný rozpočet
-                        </span>
-                        <div className="text-right">
-                          <div className="text-base md:text-lg font-bold bg-gradient-to-r from-[#1f4fa5] via-[#2563eb] to-[#3b82f6] text-transparent bg-clip-text">
-                            {currency.format(result.totalMin)} – {currency.format(result.totalMax)}
-                          </div>
-                          <div className="text-[11px] text-[#9ca3af]">
-                            v závislosti od finálneho zadania a výberu materiálov
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  )}
+                  {renderResult()}
                 </div>
 
                 {/* Illusztráció + bizalom szöveg */}
@@ -357,13 +495,15 @@ export default function CalculatorPage() {
                         Čísla berte ako prvý orientačný rámec.
                       </div>
                       <p className="text-[#4b5563]">
-                        Po úvodnom stretnutí vám pripravíme <strong>presnejší rozpočet</strong>,
-                        kde zohľadníme pozemok, konkrétne materiály, technológiu a harmonogram.
+                        Po úvodnom stretnutí vám pripravíme{" "}
+                        <strong>konkrétnejší a presný rozpočet</strong>,
+                        prispôsobený vášmu pozemku, technológiám a časovým
+                        požiadavkám.
                       </p>
                     </div>
                   </div>
                 </div>
-
+                {/* JOBB vége */}
               </div>
             </div>
           </div>
