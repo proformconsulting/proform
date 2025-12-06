@@ -23,17 +23,20 @@ export default function LanguageSwitcher() {
     <Link
       href={targetHref}
       className="
-        rounded-full 
-        px-3 py-1.5
-        bg-slate-800/80 
-        text-white 
-        border border-slate-600
-        shadow-sm
-        text-xs font-semibold
-        hover:bg-slate-700 
-        transition
-        md:text-sm
+        flex items-center justify-center
+        rounded-full
+        px-3.5 py-1.5
+        bg-slate-900/70
+        backdrop-blur-md
+        border border-slate-600/60
+        text-white
+        text-[10px] md:text-xs font-semibold tracking-wide
+        shadow-[0_0_12px_rgba(15,23,42,0.4)]
+        hover:bg-slate-800/80
+        hover:border-slate-500
+        transition-all
       "
+      aria-label={isHu ? 'Váltás szlovák nyelvre' : 'Váltás magyar nyelvre'}
     >
       {isHu ? "SK" : "HU"}
     </Link>

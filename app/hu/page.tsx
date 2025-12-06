@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import LanguageSwitcher from "../components/LanguageSwitcher";
 import MainNav from "../components/MainNav";
 
 export const metadata: Metadata = {
@@ -34,7 +33,6 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <LanguageSwitcher />
       <MainNav />
 
       <main
