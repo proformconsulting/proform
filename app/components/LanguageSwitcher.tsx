@@ -1,27 +1,33 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 export default function LanguageSwitcher() {
   const pathname = usePathname() || "/";
 
-  // HU verzió felismerése
   const isHu = pathname === "/hu" || pathname.startsWith("/hu/");
 
-  // Cél URL generálása
-  let targetHref: string;
+  const skPath = isHu
+    ? pathname === "/hu"
+      ? "/"
+      : pathname.replace("/hu", "")
+    : pathname;
 
-  if (isHu) {
-    const withoutPrefix = pathname.slice(3);
-    targetHref = withoutPrefix === "" ? "/" : withoutPrefix;
-  } else {
-    targetHref = pathname === "/" ? "/hu" : "/hu" + pathname;
-  }
+  const huPath =
+    pathname === "/"
+      ? "/hu"
+      : isHu
+      ? pathname
+      : "/hu" + pathname;   // <-- Itt volt a hiba, most STRING
+
+  const targetHref = isHu ? skPath : huPath;
+  const label = isHu ? "SK" : "HU";
 
   return (
     <Link
       href={targetHref}
+      aria-label={isHu ? "Váltás szlovák nyelvre" : "Váltás magyar nyelvre"}
       className="
         flex items-center justify-center
         rounded-full
@@ -36,9 +42,8 @@ export default function LanguageSwitcher() {
         hover:border-slate-500
         transition-all
       "
-      aria-label={isHu ? 'Váltás szlovák nyelvre' : 'Váltás magyar nyelvre'}
     >
-      {isHu ? "SK" : "HU"}
+      {label}
     </Link>
   );
 }

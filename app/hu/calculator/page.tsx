@@ -55,9 +55,8 @@ const jsonLd = {
 export default function CalculatorPageHu() {
   return (
     <>
-      <MainNav />
-
-      <main className="min-h-screen bg-[#f5f7fb] text-slate-900 relative overflow-hidden">
+           <main className="min-h-screen bg-[#f5f7fb] text-slate-900 relative overflow-hidden">
+         <MainNav />
         {/* JSON-LD */}
         <script
           type="application/ld+json"

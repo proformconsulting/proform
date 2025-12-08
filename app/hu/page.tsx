@@ -68,12 +68,13 @@ const jsonLd = {
 export default function HomeHu() {
   return (
     <>
-      <MainNav />
+     
 
       <main
         id="top"
         className="min-h-screen bg-[#f5f7fb] text-slate-900 relative overflow-hidden"
       >
+         <MainNav />
         {/* SEO: JSON-LD */}
         <script
           type="application/ld+json"

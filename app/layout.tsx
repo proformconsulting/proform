@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -14,6 +14,13 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
   display: "swap",
 });
+
+// Viewport – mobilbarát beállítás Next módra
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+};
 
 // Weboldal globális SEO beállításai
 export const metadata: Metadata = {
@@ -85,8 +92,7 @@ export const metadata: Metadata = {
     },
   },
 
-  // Színvilág és böngésző UI
-  themeColor: "#1d4ed8",
+
 };
 
 export default function RootLayout({
@@ -95,12 +101,6 @@ export default function RootLayout({
   return (
     <html lang="sk" className="scroll-smooth">
       <head>
-        {/* Mobilbarát viewport */}
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1"
-        />
-
         {/* Apple / mobil meta */}
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="format-detection" content="telephone=no" />
@@ -122,7 +122,7 @@ export default function RootLayout({
           text-slate-900
         `}
       >
-        {/* Globális wrap */}
+        {/* Globális wrap – minden oldal erre épül */}
         <div className="relative min-h-screen flex flex-col">
           {children}
         </div>
