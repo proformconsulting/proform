@@ -4,106 +4,115 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import LanguageSwitcher from "./LanguageSwitcher";
 
+const NAV_ITEMS = [
+  {
+    key: "home",
+    labelSk: "Úvod",
+    labelHu: "Főoldal",
+    hrefSk: "/",
+    hrefHu: "/hu",
+  },
+  {
+    key: "about",
+    labelSk: "O nás",
+    labelHu: "Rólunk",
+    hrefSk: "/about",
+    hrefHu: "/hu/about",
+  },
+  {
+    key: "services",
+    labelSk: "Služby",
+    labelHu: "Szolgáltatások",
+    hrefSk: "/services",
+    hrefHu: "/hu/services",
+  },
+  {
+    key: "projects",
+    labelSk: "Projekty",
+    labelHu: "Projektek",
+    hrefSk: "/projects",
+    hrefHu: "/hu/projects",
+  },
+  {
+    key: "calculator",
+    labelSk: "Kalkulačka",
+    labelHu: "Kalkulátor",
+    hrefSk: "/calculator",
+    hrefHu: "/hu/calculator",
+  },
+  {
+    key: "contact",
+    labelSk: "Kontakt",
+    labelHu: "Kapcsolat",
+    hrefSk: "/contact",
+    hrefHu: "/hu/contact",
+  },
+];
+
 export default function MainNav() {
   const pathname = usePathname() || "/";
-  const isHu = pathname === "/hu" || pathname.startsWith("/hu/");
 
-  const navItems = isHu
-    ? [
-        { href: "/hu", label: "Főoldal" },
-        { href: "/hu/about", label: "Rólunk" },
-        { href: "/hu/services", label: "Szolgáltatások" },
-        { href: "/hu/projects", label: "Projektek" },
-        { href: "/hu/calculator", label: "Kalkulátor" },
-        { href: "/hu/contact", label: "Kapcsolat" },
-      ]
-    : [
-        { href: "/", label: "Domov" },
-        { href: "/about", label: "O nás" },
-        { href: "/services", label: "Služby" },
-        { href: "/projects", label: "Projekty" },
-        { href: "/calculator", label: "Kalkulačka" },
-        { href: "/contact", label: "Kontakt" },
-      ];
+  const isHu = pathname === "/hu" || pathname.startsWith("/hu/");
+  const currentItems = NAV_ITEMS.map((item) => {
+    const href = isHu ? item.hrefHu : item.hrefSk;
+    const label = isHu ? item.labelHu : item.labelSk;
+    return { ...item, href, label };
+  });
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50 flex justify-center pt-4 pointer-events-none">
-      <nav
-        className="
-          pointer-events-auto
-          flex items-center gap-4
-          rounded-full
-          bg-slate-900/85
-          text-white
-          px-4 md:px-6 py-2
-          shadow-[0_18px_45px_rgba(15,23,42,0.85)]
-          backdrop-blur-xl
-        "
-      >
-        {/* LOGÓ / BRAND */}
-        <Link
-          href={isHu ? "/hu" : "/"}
-          className="flex items-center gap-2 pr-4 border-r border-slate-700"
-        >
-          <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-slate-800 text-[11px] font-bold">
+    <header className="sticky top-0 z-40 border-b border-slate-800/60 bg-gradient-to-b from-slate-950/95 via-slate-950/90 to-slate-950/80 backdrop-blur-xl">
+      {/* Felső sor: logó + nyelvváltó */}
+      <div className="max-w-6xl mx-auto px-4 py-2.5 flex items-center justify-between gap-3">
+        {/* Minimal logó / név */}
+        <div className="flex items-center gap-2">
+          <div className="h-8 w-8 rounded-full bg-gradient-to-br from-[#1f4fa5] via-[#60a5fa] to-[#1f4fa5] shadow-[0_0_25px_rgba(37,99,235,0.7)] flex items-center justify-center text-[14px] font-semibold text-white">
             P
-          </span>
-          <span className="text-xs md:text-sm font-semibold whitespace-nowrap">
-            ProForm Consulting
-          </span>
-        </Link>
-
-        {/* DESKTOP MENÜ */}
-        <div className="hidden md:flex items-center gap-3 text-[11px] md:text-xs">
-          {navItems.map((item) => {
-            const active =
-              pathname === item.href ||
-              (item.href !== "/" && pathname.startsWith(item.href));
-
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={
-                  "px-3 py-1 rounded-full transition " +
-                  (active
-                    ? "bg-white text-slate-900 shadow-[0_0_0_1px_rgba(148,163,184,0.6)]"
-                    : "text-slate-200/80 hover:bg-slate-800/80")
-                }
-              >
-                {item.label}
-              </Link>
-            );
-          })}
+          </div>
+          <div className="hidden sm:flex flex-col leading-tight">
+            <span className="text-xs font-semibold tracking-[0.18em] text-slate-300 uppercase">
+              ProForm
+            </span>
+            <span className="text-[11px] text-slate-400">
+              Consulting
+            </span>
+          </div>
         </div>
 
-        {/* MOBIL MENÜ – vízszintesen görgethető, NINCS hamburger */}
-        <div className="flex md:hidden gap-2 overflow-x-auto max-w-[55vw]">
-          {navItems.map((item) => {
-            const active =
-              pathname === item.href ||
-              (item.href !== "/" && pathname.startsWith(item.href));
-
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={
-                  "px-3 py-1 rounded-full text-[11px] whitespace-nowrap transition " +
-                  (active
-                    ? "bg-white text-slate-900"
-                    : "text-slate-200/80 bg-slate-800/70")
-                }
-              >
-                {item.label}
-              </Link>
-            );
-          })}
-        </div>
-
-        {/* NYELVVÁLTÓ */}
+        {/* Nyelvváltó gomb – a már meglévő LanguageSwitcher */}
         <LanguageSwitcher />
-      </nav>
+      </div>
+
+      {/* Második sor: navigációs „tabletta” – mobilon is, hamburger nélkül */}
+      <div className="max-w-6xl mx-auto px-3 pb-3">
+        <nav
+          aria-label="Fő navigáció"
+          className="w-full overflow-x-auto"
+        >
+          <ul className="flex items-center gap-2 rounded-full bg-slate-900/90 px-2 py-1 border border-slate-700/70 shadow-[0_16px_40px_rgba(15,23,42,0.85)]">
+            {currentItems.map((item) => {
+              const isActive =
+                pathname === item.href ||
+                (item.href !== "/" && pathname.startsWith(item.href + "/"));
+
+              return (
+                <li key={item.key} className="flex-shrink-0">
+                  <Link
+                    href={item.href}
+                    className={
+                      "px-3.5 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-medium transition-all " +
+                      (isActive
+                        ? "bg-gradient-to-r from-[#2563eb] via-[#1d4ed8] to-[#3b82f6] text-white shadow-[0_10px_30px_rgba(37,99,235,0.8)]"
+                        : "text-slate-300/85 hover:text-white hover:bg-slate-800/80")
+                    }
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+      </div>
     </header>
   );
 }

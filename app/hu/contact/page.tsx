@@ -5,9 +5,7 @@ import MainNav from "../../components/MainNav";
 export default function ContactPageHu() {
   return (
     <>
-     
-
-      <main className="min-h-screen bg-[#f5f7fb] relative overflow-hidden text-slate-900">
+       <main className="min-h-screen bg-[#f5f7fb] relative overflow-hidden text-slate-900">
          <MainNav />
         {/* Háttér aurák */}
         <div className="pointer-events-none absolute -top-40 -left-40 w-[500px] h-[500px] rounded-full bg-[#d7e3ff] blur-[190px] opacity-70" />

@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import Image from "next/image";
 
-// formázott euró árak
+// formázott EUR árak
 const currency = new Intl.NumberFormat("hu-HU", {
   style: "currency",
   currency: "EUR",
@@ -101,8 +101,8 @@ export default function CalculatorClientHu() {
     const baseSubtotalMin = buildMin + demoMin;
     const baseSubtotalMax = buildMax + demoMax;
 
-    const serviceMinPercent = 0.075;
-    const serviceMaxPercent = 0.105;
+    let serviceMinPercent = 0.075;
+    let serviceMaxPercent = 0.105;
 
     const serviceBaseMin = baseSubtotalMin * serviceMinPercent;
     const serviceBaseMax = baseSubtotalMax * serviceMaxPercent;
@@ -159,8 +159,8 @@ export default function CalculatorClientHu() {
         <p className="text-sm text-[#6b7280]">
           Add meg az alapterületet és válaszd ki a projekt típusát. A
           kalkulátor{" "}
-          <strong>életszerű, de vonzó</strong> költségsávot mutat Dél-nyugat
-          Szlovákia építési viszonyaira.
+          <strong>valós, de vonzó árkategóriát</strong> mutat a
+          dél-nyugat-szlovákiai piaci szintekhez igazítva.
         </p>
       );
     }
@@ -188,7 +188,7 @@ export default function CalculatorClientHu() {
                 {currency.format(buildMin)} – {currency.format(buildMax)}
               </div>
               <div className="text-[11px] text-[#9ca3af]">
-                anyag + munka, választott szinttől függően
+                anyag + munka, a választott szintnek megfelelően
               </div>
             </div>
           </div>
@@ -197,14 +197,14 @@ export default function CalculatorClientHu() {
         {demoMin > 0 && (
           <div className="flex items-baseline justify-between gap-4 border-b border-[#e5e7eb] pb-2.5">
             <span className="text-xs uppercase tracking-[0.16em] text-[#6b7280]">
-              Bontás
+              Bontási munkák
             </span>
             <div className="text-right">
               <div className="font-semibold">
                 {currency.format(demoMin)} – {currency.format(demoMax)}
               </div>
               <div className="text-[11px] text-[#9ca3af]">
-                bontási munkák, gépek, sittszállítás (tájékoztató jelleggel)
+                bontás, gépek, sittszállítás (tájékoztató jelleggel)
               </div>
             </div>
           </div>
@@ -212,29 +212,29 @@ export default function CalculatorClientHu() {
 
         <div className="flex items-baseline justify-between gap-4 border-b border-[#e5e7eb] pb-2.5">
           <span className="text-xs uppercase tracking-[0.16em] text-[#6b7280]">
-            Projekt + koordináció
+            Projekt + kivitelezés koordináció
           </span>
           <div className="text-right">
             <div className="font-semibold">
               {currency.format(serviceMin)} – {currency.format(serviceMax)}
             </div>
             <div className="text-[11px] text-[#9ca3af]">
-              tervdokumentáció, szervezés, minőségellenőrzés
-              {mode === "build" && " (VR benne van, ha be van jelölve)"}
+              tervdokumentáció, koordináció, minőségellenőrzés
+              {mode === "build" && " (VR benne van, ha bejelölted)"}
             </div>
           </div>
         </div>
 
         <div className="mt-2 pt-3 border-t border-[#e5e7eb] flex items-baseline justify-between gap-4">
           <span className="text-xs uppercase tracking-[0.2em] text-[#111827]">
-            Összesített tájékoztató költség
+            Teljes orientációs költségkeret
           </span>
           <div className="text-right">
             <div className="text-base md:text-lg font-bold bg-gradient-to-r from-[#1f4fa5] via-[#2563eb] to-[#3b82f6] text-transparent bg-clip-text">
               {currency.format(totalMin)} – {currency.format(totalMax)}
             </div>
             <div className="text-[11px] text-[#9ca3af]">
-              tipikus sáv hasonló projektekre a régióban
+              tipikus sáv hasonló projektekre, a régióban
             </div>
           </div>
         </div>
@@ -244,7 +244,7 @@ export default function CalculatorClientHu() {
 
   return (
     <>
-      {/* háttér aurák */}
+      {/* háttér / aurák */}
       <div className="pointer-events-none absolute -top-40 -left-40 w-[520px] h-[520px] rounded-full bg-[#d7e3ff] blur-[200px] opacity-70" />
       <div className="pointer-events-none absolute top-1/3 -right-40 w-[520px] h-[520px] rounded-full bg-[#c4d9ff] blur-[220px] opacity-60" />
       <div className="pointer-events-none absolute bottom-[-260px] left-1/4 w-[460px] h-[460px] rounded-full bg-[#e0e6f5] blur-[180px] opacity-80" />
@@ -254,21 +254,21 @@ export default function CalculatorClientHu() {
       <section className="relative w-full pt-24 pb-16 md:pt-28 md:pb-24">
         <div className="max-w-6xl mx-auto px-4 md:px-6 relative z-10">
           <div className="grid lg:grid-cols-[1.1fr,0.9fr] gap-10 items-start">
-            {/* BAL – szöveg + form */}
+            {/* bal – szöveg + form */}
             <div>
               <p className="text-[11px] md:text-xs tracking-[0.24em] uppercase text-[#64748b] mb-3">
-                Tájékoztató költségkalkuláció
+                Orientációs költségszámítás
               </p>
               <h1 className="text-3xl md:text-4xl font-bold mb-3 bg-gradient-to-r from-[#1f4fa5] via-[#3e6fb8] to-[#7fa4dd] text-transparent bg-clip-text">
                 Építési költség kalkulátor
               </h1>
               <p className="text-[#4b5563] text-sm md:text-base mb-6 max-w-2xl">
                 Célunk, hogy{" "}
-                <strong>gyors, mégis valósághű becslést</strong> kapj a
-                projektedről. A számok tudatosan{" "}
-                <strong>versenyképesek és elérhetőek</strong> a térség
-                átlagos ajánlataihoz képest. A pontos ajánlatot egy rövid
-                egyeztetés után készítjük el.
+                <strong>gyors, de hiteles képet</strong> kapj a várható
+                költségekről. A számok{" "}
+                <strong>versenyképes és elérhető</strong> szinten vannak a
+                dél-nyugat-szlovákiai piaci árakhoz képest. Pontos ajánlatot
+                rövid egyeztetés után készítünk.
               </p>
 
               <div className="bg-white/95 rounded-2xl border border-[#d4ddf4] shadow-[0_18px_50px_rgba(148,163,184,0.45)] p-5 md:p-6 space-y-5">
@@ -352,13 +352,13 @@ export default function CalculatorClientHu() {
                   </div>
                 )}
 
-                {/* alapterület + szint */}
+                {/* alapterület + standard */}
                 <div className="grid sm:grid-cols-[1.2fr,0.9fr] gap-4">
                   <div>
                     <label className="block text-xs font-semibold text-[#6b7280] mb-1.5 uppercase tracking-[0.14em]">
                       {mode === "build"
                         ? "Hasznos alapterület"
-                        : "Bontandó alapterület"}
+                        : "Bontandó objektum alapterülete"}
                     </label>
                     <div className="flex items-center gap-2">
                       <input
@@ -403,14 +403,14 @@ export default function CalculatorClientHu() {
                               : "bg-white/80 text-[#6b7280] border-[#cbd5f0] hover:border-[#93c5fd]")
                           }
                         >
-                          Prémium
+                          Premium
                         </button>
                       </div>
                     </div>
                   )}
                 </div>
 
-                {/* extra bontás – csak build */}
+                {/* extra bontás */}
                 {mode === "build" && (
                   <div className="border-t border-[#e2e8f0] pt-4 space-y-3">
                     <label className="flex items-center gap-2 text-sm font-semibold text-[#1f2937]">
@@ -420,13 +420,13 @@ export default function CalculatorClientHu() {
                         onChange={(e) => setHasDemolition(e.target.checked)}
                         className="h-4 w-4 rounded border-[#cbd5f0] text-[#2563eb] focus:ring-[#bfdbfe]"
                       />
-                      Van meglévő épület, amit el kell bontani?
+                      Előtte le kell bontani egy meglévő épületet?
                     </label>
 
                     {hasDemolition && (
                       <div>
                         <label className="block text-xs font-semibold text-[#6b7280] mb-1.5 uppercase tracking-[0.14em]">
-                          Bontandó épület alapterülete
+                          Bontandó alapterület
                         </label>
                         <div className="flex items-center gap-2">
                           <input
@@ -442,15 +442,15 @@ export default function CalculatorClientHu() {
                           </span>
                         </div>
                         <p className="mt-1 text-[11px] text-[#9ca3af]">
-                          Tartalmazza a bontást, gépeket és sitt elszállítást
-                          (tájékoztató jelleggel).
+                          Bontás, gépek és sitt elszállítása – tájékoztató
+                          jelleggel.
                         </p>
                       </div>
                     )}
                   </div>
                 )}
 
-                {/* VR – csak build */}
+                {/* VR */}
                 {mode === "build" && (
                   <div className="border-t border-[#e2e8f0] pt-4 space-y-2">
                     <label className="flex items-center gap-2 text-sm font-semibold text-[#1f2937]">
@@ -460,25 +460,25 @@ export default function CalculatorClientHu() {
                         onChange={(e) => setIncludeVr(e.target.checked)}
                         className="h-4 w-4 rounded border-[#cbd5f0] text-[#2563eb] focus:ring-[#bfdbfe]"
                       />
-                      Kérem VR / 3D bejárással is
+                      Kérem VR / 3D bejárással is a projektet
                     </label>
                     <p className="text-[11px] text-[#9ca3af]">
-                      A VR a szolgáltatási csomag része – a díj a „Projekt +
-                      koordináció” tételhez adódik hozzá.
+                      A VR a szolgáltatási csomag része – az összeg a „Projekt +
+                      koordináció” tételhez adódik.
                     </p>
                   </div>
                 )}
 
                 <p className="text-[11px] text-[#9ca3af]">
-                  A kalkuláció tájékoztató jellegű. A végleges ár függ a
-                  telektől, anyagoktól, technológiától és a részletes
-                  műszaki tartalomtól. Egy rövid telefon után pontosított
-                  ajánlatot készítünk.
+                  A kalkuláció tájékoztató jellegű. A tényleges ár függ a
+                  telektől, anyagválasztástól, technológiáktól és a részletes
+                  műszaki tartalomtól. Rövid beszélgetés után pontos ajánlatot
+                  készítünk.
                 </p>
               </div>
             </div>
 
-            {/* JOBB – eredmény + infó box */}
+            {/* jobb – eredmény + info box */}
             <div className="space-y-4 md:space-y-5">
               <div className="bg-white/95 rounded-2xl border border-[#d4ddf4] shadow-[0_18px_50px_rgba(148,163,184,0.5)] p-5 md:p-6">
                 <h2 className="text-lg md:text-xl font-semibold mb-4 text-[#1f2937]">
@@ -492,20 +492,21 @@ export default function CalculatorClientHu() {
                   <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden border border-[#d1ddff] shadow-[0_10px_28px_rgba(148,163,184,0.6)]">
                     <Image
                       src="/house-blueprint.jpeg"
-                      alt="Építési terv és projektkoordináció"
+                      alt="Projekt és kivitelezés koordináció"
                       fill
                       className="object-cover"
                     />
                   </div>
                   <div className="text-xs md:text-sm text-[#1f2937]">
                     <div className="font-semibold mb-1">
-                      A számokat úgy állítottuk be, hogy versenyképesek legyenek.
+                      A számok úgy vannak beállítva, hogy versenyképesek
+                      legyenek.
                     </div>
                     <p className="text-[#4b5563]">
                       Az első egyeztetés után{" "}
-                      <strong>konkrét, részletes költségvetést</strong> készítünk,
-                      ahol minden részlet – telek, anyagok, technológiák –
-                      figyelembe van véve.
+                      <strong>konkrét, részletes költségvetést</strong> kapsz,
+                      ahol figyelembe vesszük a telek adottságait, a
+                      kiválasztott anyagokat és technológiákat is.
                     </p>
                   </div>
                 </div>
