@@ -29,8 +29,7 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title:
-      "Projektek – ProForm Consulting | Építési projektek egy kézben",
+    title: "Projektek – ProForm Consulting | Építési projektek egy kézben",
     description:
       "Családi házak, befektetési lakóprojektek, kereskedelmi és irodai terek, csarnokok és bontás. A ProForm Consulting az egész projektet egy kézben tartja az ötlettől a kulcsátadásig.",
     url: "https://proformconsulting.sk/hu/projektek",
@@ -84,11 +83,12 @@ export default function ProjectsHu() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
 
-        {/* HÁTTÉR – ugyanaz a „aura” mint services oldalon */}
+        {/* HÁTTÉR – aurák + finom fénycsík */}
         <div className="pointer-events-none absolute -top-40 -left-40 w-[520px] h-[520px] rounded-full bg-[#d7e3ff] blur-[200px] opacity-70" />
         <div className="pointer-events-none absolute top-1/3 -right-40 w-[520px] h-[520px] rounded-full bg-[#c4d9ff] blur-[220px] opacity-60" />
         <div className="pointer-events-none absolute bottom-[-260px] left-1/4 w-[460px] h-[460px] rounded-full bg-[#e0e6f5] blur-[180px] opacity-80" />
-        <div className="pointer-events-none absolute inset-0 opacity-[0.35] bg-[radial-gradient(circle_at_top,#e0e7ff_0,#f5f7fb_55%)] mix-blend-screen" />
+        <div className="pointer-events-none absolute inset-0 opacity-[0.4] bg-[radial-gradient(circle_at_top,#e0e7ff_0,#f5f7fb_55%)] mix-blend-screen" />
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(115deg,rgba(255,255,255,0.3)_0%,rgba(148,163,233,0.18)_35%,transparent_75%)] mix-blend-soft-light" />
 
         {/* HERO */}
         <section
@@ -115,6 +115,32 @@ export default function ProjectsHu() {
               Mi fogjuk össze a mestereket, a határidőket és a dokumentációt,
               hogy a projekted nyugodtan, kiszámíthatóan haladjon.
             </p>
+
+            {/* Kis statisztika / bizalom építő sor */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full max-w-3xl text-xs md:text-sm">
+              <div className="bg-white/80 backdrop-blur-xl rounded-2xl border border-[#d6e0f5] px-4 py-3 shadow-[0_10px_26px_rgba(148,163,184,0.35)]">
+                <div className="font-semibold text-[#1d4ed8] mb-0.5">
+                  1 partner
+                </div>
+                <p className="text-[#4b5563]">
+                  aki végigviszi a teljes projektet
+                </p>
+              </div>
+              <div className="bg-white/80 backdrop-blur-xl rounded-2xl border border-[#d6e0f5] px-4 py-3 shadow-[0_10px_26px_rgba(148,163,184,0.35)]">
+                <div className="font-semibold text-[#1d4ed8] mb-0.5">
+                  3 fő terület
+                </div>
+                <p className="text-[#4b5563]">
+                  tervezés, engedélyezés, kivitelezés koordináció
+                </p>
+              </div>
+              <div className="bg-white/80 backdrop-blur-xl rounded-2xl border border-[#d6e0f5] px-4 py-3 shadow-[0_10px_26px_rgba(148,163,184,0.35)]">
+                <div className="font-semibold text-[#1d4ed8] mb-0.5">
+                  Dél-nyugat Szlovákia
+                </div>
+                <p className="text-[#4b5563]">helyi piaci ismerettel</p>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -138,58 +164,79 @@ export default function ProjectsHu() {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {/* Családi ház */}
-              <article className="bg-white rounded-2xl border border-[#d4ddf4] shadow-[0_14px_32px_rgba(148,163,184,0.42)] p-5">
-                <p className="text-[10px] md:text-xs uppercase tracking-[0.24em] text-[#2563eb] mb-2">
-                  Családi ház
-                </p>
-                <h3 className="text-sm md:text-base font-semibold text-[#111827] mb-2">
-                  Új otthonok és bővítések
-                </h3>
-                <p className="text-[#4b5563] text-xs md:text-sm leading-relaxed">
-                  Új építésű családi házak, modern villák, bővítések és
-                  felújítások. Az első vázlattól a beköltözésig vezetünk végig.
+              <article className="bg-white rounded-2xl border border-[#d4ddf4] shadow-[0_14px_32px_rgba(148,163,184,0.42)] p-5 flex flex-col justify-between">
+                <div>
+                  <p className="text-[10px] md:text-xs uppercase tracking-[0.24em] text-[#2563eb] mb-2">
+                    Családi ház
+                  </p>
+                  <h3 className="text-sm md:text-base font-semibold text-[#111827] mb-2">
+                    Új otthonok és bővítések
+                  </h3>
+                  <p className="text-[#4b5563] text-xs md:text-sm leading-relaxed">
+                    Új építésű családi házak, modern villák, bővítések és
+                    felújítások. Az első vázlattól a beköltözésig vezetünk
+                    végig.
+                  </p>
+                </div>
+                <p className="mt-3 text-[11px] text-[#9ca3af]">
+                  Tipikus méret: 110–220 m²
                 </p>
               </article>
 
               {/* Apartmanházak */}
-              <article className="bg-white rounded-2xl border border-[#d4ddf4] shadow-[0_14px_32px_rgba(148,163,184,0.42)] p-5">
-                <p className="text-[10px] md:text-xs uppercase tracking-[0.24em] text-[#2563eb] mb-2">
-                  Apartmanházak
-                </p>
-                <h3 className="text-sm md:text-base font-semibold text-[#111827] mb-2">
-                  Befektetési lakóprojektek
-                </h3>
-                <p className="text-[#4b5563] text-xs md:text-sm leading-relaxed">
-                  8–16 lakásos házak, kisebb fejlesztések. Lakásmix, alaprajz,
-                  parkolás, megtérülés – minden szempontot együtt nézünk.
+              <article className="bg-white rounded-2xl border border-[#d4ddf4] shadow-[0_14px_32px_rgba(148,163,184,0.42)] p-5 flex flex-col justify-between">
+                <div>
+                  <p className="text-[10px] md:text-xs uppercase tracking-[0.24em] text-[#2563eb] mb-2">
+                    Apartmanházak
+                  </p>
+                  <h3 className="text-sm md:text-base font-semibold text-[#111827] mb-2">
+                    Befektetési lakóprojektek
+                  </h3>
+                  <p className="text-[#4b5563] text-xs md:text-sm leading-relaxed">
+                    8–16 lakásos házak, kisebb fejlesztések. Lakásmix, alaprajz,
+                    parkolás, megtérülés – minden szempontot együtt nézünk.
+                  </p>
+                </div>
+                <p className="mt-3 text-[11px] text-[#9ca3af]">
+                  Fókusz: megtérülés & értékesíthetőség
                 </p>
               </article>
 
               {/* Kereskedelmi projektek */}
-              <article className="bg-white rounded-2xl border border-[#d4ddf4] shadow-[0_14px_32px_rgba(148,163,184,0.42)] p-5">
-                <p className="text-[10px] md:text-xs uppercase tracking-[0.24em] text-[#2563eb] mb-2">
-                  Kereskedelmi & irodai
-                </p>
-                <h3 className="text-sm md:text-base font-semibold text-[#111827] mb-2">
-                  Irodák, üzletek, rendelők
-                </h3>
-                <p className="text-[#4b5563] text-xs md:text-sm leading-relaxed">
-                  Olyan terek, ahol az ügyfélélmény és a hatékony működés
-                  egyszerre fontos – iroda, showroom, rendelő, kisebb üzlet.
+              <article className="bg-white rounded-2xl border border-[#d4ddf4] shadow-[0_14px_32px_rgba(148,163,184,0.42)] p-5 flex flex-col justify-between">
+                <div>
+                  <p className="text-[10px] md:text-xs uppercase tracking-[0.24em] text-[#2563eb] mb-2">
+                    Kereskedelmi & irodai
+                  </p>
+                  <h3 className="text-sm md:text-base font-semibold text-[#111827] mb-2">
+                    Irodák, üzletek, rendelők
+                  </h3>
+                  <p className="text-[#4b5563] text-xs md:text-sm leading-relaxed">
+                    Olyan terek, ahol az ügyfélélmény és a hatékony működés
+                    egyszerre fontos – iroda, showroom, rendelő, kisebb üzlet.
+                  </p>
+                </div>
+                <p className="mt-3 text-[11px] text-[#9ca3af]">
+                  Ügyfélút, működési logika, brand
                 </p>
               </article>
 
               {/* Csarnok / ipari / bontás */}
-              <article className="bg-white rounded-2xl border border-[#d4ddf4] shadow-[0_14px_32px_rgba(148,163,184,0.42)] p-5">
-                <p className="text-[10px] md:text-xs uppercase tracking-[0.24em] text-[#2563eb] mb-2">
-                  Csarnok & bontás
-                </p>
-                <h3 className="text-sm md:text-base font-semibold text-[#111827] mb-2">
-                  Ipari terek és terület-előkészítés
-                </h3>
-                <p className="text-[#4b5563] text-xs md:text-sm leading-relaxed">
-                  Csarnokok, raktárak, hangárok, bontási projektek. Engedélyek,
-                  dokumentáció és biztonsági protokoll egy rendszerben.
+              <article className="bg-white rounded-2xl border border-[#d4ddf4] shadow-[0_14px_32px_rgba(148,163,184,0.42)] p-5 flex flex-col justify-between">
+                <div>
+                  <p className="text-[10px] md:text-xs uppercase tracking-[0.24em] text-[#2563eb] mb-2">
+                    Csarnok & bontás
+                  </p>
+                  <h3 className="text-sm md:text-base font-semibold text-[#111827] mb-2">
+                    Ipari terek és terület-előkészítés
+                  </h3>
+                  <p className="text-[#4b5563] text-xs md:text-sm leading-relaxed">
+                    Csarnokok, raktárak, hangárok, bontási projektek. Engedélyek,
+                    dokumentáció és biztonsági protokoll egy rendszerben.
+                  </p>
+                </div>
+                <p className="mt-3 text-[11px] text-[#9ca3af]">
+                  Teherbírás, logisztika, biztonság
                 </p>
               </article>
             </div>
