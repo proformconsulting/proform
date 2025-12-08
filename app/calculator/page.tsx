@@ -1,8 +1,38 @@
 "use client";
 
+import type { Metadata } from "next";
 import { useState, useMemo } from "react";
 import Image from "next/image";
 import MainNav from "../components/MainNav";
+
+// --- SEO / META ---
+export const metadata: Metadata = {
+  title:
+    "Kalkulačka nákladov | ProForm Consulting – orientačný rozpočet stavby a demolácie",
+  description:
+    "Orientačný kalkulátor stavebných a demolačných nákladov v regióne juhozápadného Slovenska. Zadajte plochu a typ projektu – získate reálne cenové pásmo a rámcový rozpočet.",
+  alternates: {
+    canonical: "https://proformconsulting.sk/kalkulacka",
+    languages: {
+      "sk-SK": "/kalkulacka",
+      "hu-HU": "/hu/kalkulator",
+      "x-default": "/",
+    },
+  },
+  openGraph: {
+    title:
+      "Orientačná kalkulačka nákladov – ProForm Consulting | Výstavba a demolácia",
+    description:
+      "Získajte rýchly a férový odhad nákladov na výstavbu rodinného domu, rekonštrukciu, komerčný objekt alebo demoláciu. Nastavené na reálne podmienky juhozápadného Slovenska.",
+    url: "https://proformconsulting.sk/kalkulacka",
+    type: "website",
+    siteName: "ProForm Consulting",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
 
 // formázott euró árak
 const currency = new Intl.NumberFormat("sk-SK", {
@@ -35,22 +65,42 @@ export default function CalculatorPage() {
   const [demolitionArea, setDemolitionArea] = useState<string>("");
   const [includeVr, setIncludeVr] = useState<boolean>(false);
 
+  // JSON-LD – struktúrált adat
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Orientačný kalkulátor stavebných a demolačných nákladov",
+    provider: {
+      "@type": "Organization",
+      name: "ProForm Consulting",
+    },
+    areaServed: "Juhozápadné Slovensko",
+    serviceType: [
+      "Odhad nákladov na výstavbu rodinného domu",
+      "Odhad nákladov na rekonštrukciu",
+      "Odhad nákladov na komerčné a priemyselné stavby",
+      "Odhad nákladov na demoláciu objektu",
+      "Projektové riadenie a koordinácia stavby",
+    ],
+    url: "https://proformconsulting.sk/kalkulacka",
+  };
+
   const result = useMemo<CalcResult | null>(() => {
     const a = Number(area) || 0;
     const demoExtra = hasDemolition ? Number(demolitionArea) || 0 : 0;
 
-    // DEMOLÁCIÓS MÓD – csak bontás
+    // DEMOLÁCIA – iba búranie
     if (mode === "demolition") {
       if (a <= 0) return null;
 
-      // dél-nyugat Szlovákia irányár, olcsóbb a piaci átlagtól
-      const demoMinPerM2 = 32; // családi ház / menší objekt
+      // juhozápadné Slovensko, zámerne mierne pod priemerným trhom
+      const demoMinPerM2 = 32;
       const demoMaxPerM2 = 58;
 
       const demoMin = a * demoMinPerM2;
       const demoMax = a * demoMaxPerM2;
 
-      // szolgáltatás (dokumentácia + koordinácia bontásnál)
+      // servis: dokumentácia + koordinácia demolácie
       const serviceMin = demoMin * 0.06;
       const serviceMax = demoMax * 0.09;
 
@@ -66,32 +116,31 @@ export default function CalculatorPage() {
       };
     }
 
-    // ÉPÍTÉS MÓD
+    // VÝSTAVBA / REKONŠTRUKCIA
     if (a <= 0) return null;
 
-    // építés / felújítás irányár m²-re – kicsit a piac alatt
     let baseMinPerM2 = 0;
     let baseMaxPerM2 = 0;
 
     switch (projectType) {
       case "family":
-        // új családi ház – kulcsrakész
+        // nový rodinný dom – štandardne „na kľúč”
         baseMinPerM2 = 1100;
         baseMaxPerM2 = 1450;
         break;
       case "renovation":
-        // komplex lakás / ház felújítás
+        // komplexná rekonštrukcia bytu / domu
         baseMinPerM2 = 430;
         baseMaxPerM2 = 780;
         break;
       case "commercial":
-        // csarnok, raktár, kereskedelmi / ipari épület
+        // hala, sklad, komerčný / priemyselný objekt
         baseMinPerM2 = 780;
         baseMaxPerM2 = 1200;
         break;
     }
 
-    // standard vs. premium
+    // štandard vs. premium
     let factorMin = 1;
     let factorMax = 1;
     if (standard === "premium") {
@@ -102,7 +151,7 @@ export default function CalculatorPage() {
     const buildMin = a * baseMinPerM2 * factorMin;
     const buildMax = a * baseMaxPerM2 * factorMax;
 
-    // bontás, ha régi épületet is le kell venni
+    // demolácia, ak treba zbúrať starý objekt
     const demoMinPerM2 = 32;
     const demoMaxPerM2 = 58;
 
@@ -112,15 +161,14 @@ export default function CalculatorPage() {
     const baseSubtotalMin = buildMin + demoMin;
     const baseSubtotalMax = buildMax + demoMax;
 
-    // Szolgáltatás: projektdokumentáció + projektmenedzsment + koordinácia
-    // Mindent egyben számolunk, vonzó, de reális díjjal.
+    // servis: projektdokumentácia + projektový manažment + koordinácia
     let serviceMinPercent = 0.075;
     let serviceMaxPercent = 0.105;
 
     const serviceBaseMin = baseSubtotalMin * serviceMinPercent;
     const serviceBaseMax = baseSubtotalMax * serviceMaxPercent;
 
-    // VR / 3D benne van a szolgáltatás díjában, ha kérik
+    // VR / 3D – ak je zvolené, pripočítame k servisu
     let vrExtraMin = 0;
     let vrExtraMax = 0;
 
@@ -260,16 +308,28 @@ export default function CalculatorPage() {
       <MainNav />
 
       <main className="min-h-screen bg-[#f5f7fb] text-slate-900 relative overflow-hidden">
-        {/* háttér aurák */}
+        {/* JSON-LD */}
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+
+        {/* háttér aurák – egységes brand */}
         <div className="pointer-events-none absolute -top-40 -left-40 w-[520px] h-[520px] rounded-full bg-[#d7e3ff] blur-[200px] opacity-70" />
         <div className="pointer-events-none absolute top-1/3 -right-40 w-[520px] h-[520px] rounded-full bg-[#c4d9ff] blur-[220px] opacity-60" />
         <div className="pointer-events-none absolute bottom-[-260px] left-1/4 w-[460px] h-[460px] rounded-full bg-[#e0e6f5] blur-[180px] opacity-80" />
+        <div className="pointer-events-none absolute inset-0 opacity-[0.35] bg-[radial-gradient(circle_at_top,#e0e7ff_0,#f5f7fb_55%)] mix-blend-screen" />
 
+        {/* HERO + kalkulátor */}
         <section className="relative w-full pt-24 pb-16 md:pt-28 md:pb-24">
           <div className="max-w-6xl mx-auto px-4 md:px-6 relative z-10">
             <div className="grid lg:grid-cols-[1.1fr,0.9fr] gap-10 items-start">
               {/* BAL – szöveg + form */}
               <div>
+                <p className="text-[11px] md:text-xs tracking-[0.24em] uppercase text-[#64748b] mb-3">
+                  Orientačný výpočet nákladov
+                </p>
                 <h1 className="text-3xl md:text-4xl font-bold mb-3 bg-gradient-to-r from-[#1f4fa5] via-[#3e6fb8] to-[#7fa4dd] text-transparent bg-clip-text">
                   Orientačný kalkulátor stavebných nákladov
                 </h1>
@@ -316,56 +376,54 @@ export default function CalculatorPage() {
                     </div>
                   </div>
 
-                  {/* Ak építés mód, akkor projekt típus + standard */}
+                  {/* projekt típus – csak build módban */}
                   {mode === "build" && (
-                    <>
-                      <div>
-                        <label className="block text-xs font-semibold text-[#6b7280] mb-1.5 uppercase tracking-[0.14em]">
-                          Typ projektu
-                        </label>
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-                          <button
-                            type="button"
-                            onClick={() => setProjectType("family")}
-                            className={
-                              "rounded-xl px-3 py-2 text-sm font-semibold border transition " +
-                              (projectType === "family"
-                                ? "bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] text-white border-transparent shadow-[0_10px_28px_rgba(37,99,235,0.55)]"
-                                : "bg-white text-[#1f2937] border-[#cbd5f0] hover:border-[#93c5fd]")
-                            }
-                          >
-                            Rodinný dom
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => setProjectType("renovation")}
-                            className={
-                              "rounded-xl px-3 py-2 text-sm font-semibold border transition " +
-                              (projectType === "renovation"
-                                ? "bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] text-white border-transparent shadow-[0_10px_28px_rgba(37,99,235,0.55)]"
-                                : "bg-white text-[#1f2937] border-[#cbd5f0] hover:border-[#93c5fd]")
-                            }
-                          >
-                            Rekonštrukcia
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => setProjectType("commercial")}
-                            className={
-                              "rounded-xl px-3 py-2 text-sm font-semibold border transition " +
-                              (projectType === "commercial"
-                                ? "bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] text-white border-transparent shadow-[0_10px_28px_rgba(37,99,235,0.55)]"
-                                : "bg-white text-[#1f2937] border-[#cbd5f0] hover:border-[#93c5fd]")
-                            }
-                          >
-                            Komerčný / priemyselný objekt
-                          </button>
-                        </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-[#6b7280] mb-1.5 uppercase tracking-[0.14em]">
+                        Typ projektu
+                      </label>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                        <button
+                          type="button"
+                          onClick={() => setProjectType("family")}
+                          className={
+                            "rounded-xl px-3 py-2 text-sm font-semibold border transition " +
+                            (projectType === "family"
+                              ? "bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] text-white border-transparent shadow-[0_10px_28px_rgba(37,99,235,0.55)]"
+                              : "bg-white text-[#1f2937] border-[#cbd5f0] hover:border-[#93c5fd]")
+                          }
+                        >
+                          Rodinný dom
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setProjectType("renovation")}
+                          className={
+                            "rounded-xl px-3 py-2 text-sm font-semibold border transition " +
+                            (projectType === "renovation"
+                              ? "bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] text-white border-transparent shadow-[0_10px_28px_rgba(37,99,235,0.55)]"
+                              : "bg-white text-[#1f2937] border-[#cbd5f0] hover:border-[#93c5fd]")
+                          }
+                        >
+                          Rekonštrukcia
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setProjectType("commercial")}
+                          className={
+                            "rounded-xl px-3 py-2 text-sm font-semibold border transition " +
+                            (projectType === "commercial"
+                              ? "bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] text-white border-transparent shadow-[0_10px_28px_rgba(37,99,235,0.55)]"
+                              : "bg-white text-[#1f2937] border-[#cbd5f0] hover:border-[#93c5fd]")
+                          }
+                        >
+                          Komerčný / priemyselný objekt
+                        </button>
                       </div>
-                    </>
+                    </div>
                   )}
 
-                  {/* Plocha + standard / alebo iba plocha pre demoláciu */}
+                  {/* plocha + standard / alebo len plocha pri demolácii */}
                   <div className="grid sm:grid-cols-[1.2fr,0.9fr] gap-4">
                     <div>
                       <label className="block text-xs font-semibold text-[#6b7280] mb-1.5 uppercase tracking-[0.14em]">
@@ -423,7 +481,7 @@ export default function CalculatorPage() {
                     )}
                   </div>
 
-                  {/* Demolácia extra – csak építés módban */}
+                  {/* extra demolácia – len build módban */}
                   {mode === "build" && (
                     <div className="border-t border-[#e2e8f0] pt-4 space-y-3">
                       <label className="flex items-center gap-2 text-sm font-semibold text-[#1f2937]">
@@ -467,7 +525,7 @@ export default function CalculatorPage() {
                     </div>
                   )}
 
-                  {/* VR opció – csak építés módban */}
+                  {/* VR – len build módban */}
                   {mode === "build" && (
                     <div className="border-t border-[#e2e8f0] pt-4 space-y-2">
                       <label className="flex items-center gap-2 text-sm font-semibold text-[#1f2937]">
@@ -488,13 +546,13 @@ export default function CalculatorPage() {
 
                   <p className="text-[11px] text-[#9ca3af]">
                     Ide o informatívny výpočet. Skutočná cena závisí od
-                    pozemku, materiálov, technológií a detailného zadania.
-                    Po krátkom telefonáte vám pripravíme presnejšiu ponuku.
+                    pozemku, materiálov, technológií a detailného zadania. Po
+                    krátkom telefonáte vám pripravíme presnejšiu ponuku.
                   </p>
                 </div>
               </div>
 
-              {/* JOBB – eredmény + grafika */}
+              {/* JOBB – eredmény + info box */}
               <div className="space-y-4 md:space-y-5">
                 <div className="bg-white/95 rounded-2xl border border-[#d4ddf4] shadow-[0_18px_50px_rgba(148,163,184,0.5)] p-5 md:p-6">
                   <h2 className="text-lg md:text-xl font-semibold mb-4 text-[#1f2937]">
@@ -526,7 +584,7 @@ export default function CalculatorPage() {
                     </div>
                   </div>
                 </div>
-                {/* JOBB vége */}
+                {/* jobb vége */}
               </div>
             </div>
           </div>

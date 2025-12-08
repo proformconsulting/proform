@@ -1,9 +1,40 @@
 "use client";
 
+import type { Metadata } from "next";
 import { useState, useMemo } from "react";
 import Image from "next/image";
 import MainNav from "../../components/MainNav";
 
+// --- SEO / META ---
+export const metadata: Metadata = {
+  title:
+    "Kalkulátor | ProForm Consulting – építési és bontási költségek tájékoztató kalkulációja",
+  description:
+    "Tájékoztató kalkulátor építési, felújítási és bontási költségekhez Dél-nyugat Szlovákia régiójában. Add meg az alapterületet és a projekt típusát – kapsz egy reális költségsávot.",
+  alternates: {
+    canonical: "https://proformconsulting.sk/hu/kalkulator",
+    languages: {
+      "hu-HU": "/hu/kalkulator",
+      "sk-SK": "/kalkulacka",
+      "x-default": "/",
+    },
+  },
+  openGraph: {
+    title:
+      "Tájékoztató építési költség kalkulátor – ProForm Consulting | Építés és bontás",
+    description:
+      "Gyors, őszinte költségkép családi házra, felújításra, kereskedelmi vagy ipari épületre, illetve bontásra. A dél-nyugat szlovákiai piaci viszonyokhoz igazítva.",
+    url: "https://proformconsulting.sk/hu/kalkulator",
+    type: "website",
+    siteName: "ProForm Consulting",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
+// formázott euró árak
 const currency = new Intl.NumberFormat("hu-HU", {
   style: "currency",
   currency: "EUR",
@@ -34,6 +65,26 @@ export default function CalculatorPageHu() {
   const [demolitionArea, setDemolitionArea] = useState<string>("");
   const [includeVr, setIncludeVr] = useState<boolean>(false);
 
+  // JSON-LD – struktúrált adat
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Tájékoztató építési és bontási költség kalkulátor",
+    provider: {
+      "@type": "Organization",
+      name: "ProForm Consulting",
+    },
+    areaServed: "Dél-nyugat Szlovákia",
+    serviceType: [
+      "Tájékoztató költségkalkuláció családi házra",
+      "Tájékoztató költségkalkuláció felújításra",
+      "Tájékoztató költségkalkuláció kereskedelmi és ipari épületekre",
+      "Tájékoztató költségkalkuláció bontási projektre",
+      "Építési projektmenedzsment és koordináció",
+    ],
+    url: "https://proformconsulting.sk/hu/kalkulator",
+  };
+
   const result = useMemo<CalcResult | null>(() => {
     const a = Number(area) || 0;
     const demoExtra = hasDemolition ? Number(demolitionArea) || 0 : 0;
@@ -42,14 +93,14 @@ export default function CalculatorPageHu() {
     if (mode === "demolition") {
       if (a <= 0) return null;
 
-      // dél-nyugat Szlovákia – egy kicsit a piaci átlag alá lőve
+      // Dél-nyugat Szlovákia – kicsit a piaci átlag alá lőve
       const demoMinPerM2 = 32;
       const demoMaxPerM2 = 58;
 
       const demoMin = a * demoMinPerM2;
       const demoMax = a * demoMaxPerM2;
 
-      // szolgáltatás: bontási dokumentáció + szervezés + koordináció
+      // Szolgáltatás: bontási dokumentáció + szervezés + koordináció
       const serviceMin = demoMin * 0.06;
       const serviceMax = demoMax * 0.09;
 
@@ -260,10 +311,18 @@ export default function CalculatorPageHu() {
       <MainNav />
 
       <main className="min-h-screen bg-[#f5f7fb] text-slate-900 relative overflow-hidden">
-        {/* háttér aurák */}
+        {/* SEO: JSON-LD */}
+        <script
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+
+        {/* háttér aurák – egységes ProForm dizájn */}
         <div className="pointer-events-none absolute -top-40 -left-40 w-[520px] h-[520px] rounded-full bg-[#d7e3ff] blur-[200px] opacity-70" />
         <div className="pointer-events-none absolute top-1/3 -right-40 w-[520px] h-[520px] rounded-full bg-[#c4d9ff] blur-[220px] opacity-60" />
         <div className="pointer-events-none absolute bottom-[-260px] left-1/4 w-[460px] h-[460px] rounded-full bg-[#e0e6f5] blur-[180px] opacity-80" />
+        <div className="pointer-events-none absolute inset-0 opacity-[0.35] bg-[radial-gradient(circle_at_top,#e0e7ff_0,#f5f7fb_55%)] mix-blend-screen" />
 
         {/* HERO + kalkulátor */}
         <section className="relative w-full pt-24 pb-16 md:pt-28 md:pb-24">
@@ -271,6 +330,9 @@ export default function CalculatorPageHu() {
             <div className="grid lg:grid-cols-[1.1fr,0.9fr] gap-10 items-start">
               {/* BAL – szöveg + űrlap */}
               <div>
+                <p className="text-[11px] md:text-xs tracking-[0.24em] uppercase text-[#64748b] mb-3">
+                  Tájékoztató költségtervezés
+                </p>
                 <h1 className="text-3xl md:text-4xl font-bold mb-3 bg-gradient-to-r from-[#1f4fa5] via-[#3e6fb8] to-[#7fa4dd] text-transparent bg-clip-text">
                   Tájékoztató építési költség kalkulátor
                 </h1>
@@ -316,7 +378,7 @@ export default function CalculatorPageHu() {
                     </div>
                   </div>
 
-                  {/* projekt típus csak építés módban */}
+                  {/* projekt típus – csak építés módban */}
                   {mode === "build" && (
                     <div>
                       <label className="block text-xs font-semibold text-[#6b7280] mb-1.5 uppercase tracking-[0.14em]">
@@ -363,7 +425,7 @@ export default function CalculatorPageHu() {
                     </div>
                   )}
 
-                  {/* alapterület + standard/prémium vagy csak alapterület bontásra */}
+                  {/* alapterület + standard / vagy csak alapterület bontásra */}
                   <div className="grid sm:grid-cols-[1.2fr,0.9fr] gap-4">
                     <div>
                       <label className="block text-xs font-semibold text-[#6b7280] mb-1.5 uppercase tracking-[0.14em]">
@@ -490,7 +552,7 @@ export default function CalculatorPageHu() {
                 </div>
               </div>
 
-              {/* JOBB – eredmény + illusztráció */}
+              {/* JOBB – eredmény + info box */}
               <div className="space-y-4 md:space-y-5">
                 <div className="bg-white/95 rounded-2xl border border-[#d4ddf4] shadow-[0_18px_50px_rgba(148,163,184,0.5)] p-5 md:p-6">
                   <h2 className="text-lg md:text-xl font-semibold mb-4 text-[#1f2937]">
@@ -522,7 +584,7 @@ export default function CalculatorPageHu() {
                     </div>
                   </div>
                 </div>
-                {/* JOBB vége */}
+                {/* jobb vége */}
               </div>
             </div>
           </div>
