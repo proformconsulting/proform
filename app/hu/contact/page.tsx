@@ -1,12 +1,10 @@
 // app/hu/contact/page.tsx
 import Image from "next/image";
-import LanguageSwitcher from "../../components/LanguageSwitcher";
 import MainNav from "../../components/MainNav";
 
 export default function ContactPageHu() {
   return (
     <>
-      <LanguageSwitcher />
       <MainNav />
 
       <main className="min-h-screen bg-[#f5f7fb] relative overflow-hidden text-slate-900">
