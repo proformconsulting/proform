@@ -38,7 +38,6 @@ export default function CalculatorClientHu() {
     const a = Number(area) || 0;
     const demoExtra = hasDemolition ? Number(demolitionArea) || 0 : 0;
 
-    // BONTÁS – csak bontási mód
     if (mode === "demolition") {
       if (a <= 0) return null;
 
@@ -48,7 +47,6 @@ export default function CalculatorClientHu() {
       const demoMin = a * demoMinPerM2;
       const demoMax = a * demoMaxPerM2;
 
-      // szolgáltatás: dokumentáció + bontási koordináció
       const serviceMin = demoMin * 0.06;
       const serviceMax = demoMax * 0.09;
 
@@ -64,7 +62,6 @@ export default function CalculatorClientHu() {
       };
     }
 
-    // ÉPÍTÉS / FELÚJÍTÁS
     if (a <= 0) return null;
 
     let baseMinPerM2 = 0;
@@ -72,23 +69,19 @@ export default function CalculatorClientHu() {
 
     switch (projectType) {
       case "family":
-        // új családi ház – kulcsrakész
         baseMinPerM2 = 1100;
         baseMaxPerM2 = 1450;
         break;
       case "renovation":
-        // komplex lakás / ház felújítás
         baseMinPerM2 = 430;
         baseMaxPerM2 = 780;
         break;
       case "commercial":
-        // csarnok, raktár, kereskedelmi / ipari épület
         baseMinPerM2 = 780;
         baseMaxPerM2 = 1200;
         break;
     }
 
-    // standard vs. premium
     let factorMin = 1;
     let factorMax = 1;
     if (standard === "premium") {
@@ -99,7 +92,6 @@ export default function CalculatorClientHu() {
     const buildMin = a * baseMinPerM2 * factorMin;
     const buildMax = a * baseMaxPerM2 * factorMax;
 
-    // bontás, ha régi épületet le kell venni
     const demoMinPerM2 = 32;
     const demoMaxPerM2 = 58;
 
@@ -109,14 +101,12 @@ export default function CalculatorClientHu() {
     const baseSubtotalMin = buildMin + demoMin;
     const baseSubtotalMax = buildMax + demoMax;
 
-    // szolgáltatás: tervezési dokumentáció + projektmenedzsment + koordináció
-    let serviceMinPercent = 0.075;
-    let serviceMaxPercent = 0.105;
+    const serviceMinPercent = 0.075;
+    const serviceMaxPercent = 0.105;
 
     const serviceBaseMin = baseSubtotalMin * serviceMinPercent;
     const serviceBaseMax = baseSubtotalMax * serviceMaxPercent;
 
-    // VR / 3D – ha kéri az ügyfél
     let vrExtraMin = 0;
     let vrExtraMax = 0;
 
@@ -167,10 +157,10 @@ export default function CalculatorClientHu() {
     if (!result) {
       return (
         <p className="text-sm text-[#6b7280]">
-          Add meg az alapterületet és válaszd ki a számítás típusát. A
+          Add meg az alapterületet és válaszd ki a projekt típusát. A
           kalkulátor{" "}
-          <strong>vonzó, de valós piaci tartományt</strong> mutat a
-          projektedre Dél-nyugat Szlovákia térségében.
+          <strong>életszerű, de vonzó</strong> költségsávot mutat Dél-nyugat
+          Szlovákia építési viszonyaira.
         </p>
       );
     }
@@ -198,7 +188,7 @@ export default function CalculatorClientHu() {
                 {currency.format(buildMin)} – {currency.format(buildMax)}
               </div>
               <div className="text-[11px] text-[#9ca3af]">
-                anyag + munka, a választott szinttől függően
+                anyag + munka, választott szinttől függően
               </div>
             </div>
           </div>
@@ -207,14 +197,14 @@ export default function CalculatorClientHu() {
         {demoMin > 0 && (
           <div className="flex items-baseline justify-between gap-4 border-b border-[#e5e7eb] pb-2.5">
             <span className="text-xs uppercase tracking-[0.16em] text-[#6b7280]">
-              Bontási munkák
+              Bontás
             </span>
             <div className="text-right">
               <div className="font-semibold">
                 {currency.format(demoMin)} – {currency.format(demoMax)}
               </div>
               <div className="text-[11px] text-[#9ca3af]">
-                bontás, gépek, sitt elszállítás (tájékoztató jelleggel)
+                bontási munkák, gépek, sittszállítás (tájékoztató jelleggel)
               </div>
             </div>
           </div>
@@ -222,14 +212,14 @@ export default function CalculatorClientHu() {
 
         <div className="flex items-baseline justify-between gap-4 border-b border-[#e5e7eb] pb-2.5">
           <span className="text-xs uppercase tracking-[0.16em] text-[#6b7280]">
-            Tervezés + projektkoordináció
+            Projekt + koordináció
           </span>
           <div className="text-right">
             <div className="font-semibold">
               {currency.format(serviceMin)} – {currency.format(serviceMax)}
             </div>
             <div className="text-[11px] text-[#9ca3af]">
-              tervek, dokumentáció, egyeztetés, minőség-ellenőrzés
+              tervdokumentáció, szervezés, minőségellenőrzés
               {mode === "build" && " (VR benne van, ha be van jelölve)"}
             </div>
           </div>
@@ -237,14 +227,14 @@ export default function CalculatorClientHu() {
 
         <div className="mt-2 pt-3 border-t border-[#e5e7eb] flex items-baseline justify-between gap-4">
           <span className="text-xs uppercase tracking-[0.2em] text-[#111827]">
-            Teljes orientációs költség
+            Összesített tájékoztató költség
           </span>
           <div className="text-right">
             <div className="text-base md:text-lg font-bold bg-gradient-to-r from-[#1f4fa5] via-[#2563eb] to-[#3b82f6] text-transparent bg-clip-text">
               {currency.format(totalMin)} – {currency.format(totalMax)}
             </div>
             <div className="text-[11px] text-[#9ca3af]">
-              tipikus tartomány hasonló projektekre a régióban
+              tipikus sáv hasonló projektekre a régióban
             </div>
           </div>
         </div>
@@ -254,7 +244,7 @@ export default function CalculatorClientHu() {
 
   return (
     <>
-      {/* háttér aurák – egységes brand */}
+      {/* háttér aurák */}
       <div className="pointer-events-none absolute -top-40 -left-40 w-[520px] h-[520px] rounded-full bg-[#d7e3ff] blur-[200px] opacity-70" />
       <div className="pointer-events-none absolute top-1/3 -right-40 w-[520px] h-[520px] rounded-full bg-[#c4d9ff] blur-[220px] opacity-60" />
       <div className="pointer-events-none absolute bottom-[-260px] left-1/4 w-[460px] h-[460px] rounded-full bg-[#e0e6f5] blur-[180px] opacity-80" />
@@ -267,25 +257,25 @@ export default function CalculatorClientHu() {
             {/* BAL – szöveg + form */}
             <div>
               <p className="text-[11px] md:text-xs tracking-[0.24em] uppercase text-[#64748b] mb-3">
-                Orientációs költségszámítás
+                Tájékoztató költségkalkuláció
               </p>
               <h1 className="text-3xl md:text-4xl font-bold mb-3 bg-gradient-to-r from-[#1f4fa5] via-[#3e6fb8] to-[#7fa4dd] text-transparent bg-clip-text">
                 Építési költség kalkulátor
               </h1>
               <p className="text-[#4b5563] text-sm md:text-base mb-6 max-w-2xl">
-                A célunk, hogy{" "}
-                <strong>gyors és korrekt képet</strong> kapj a költségekről. A
-                számok úgy vannak beállítva, hogy{" "}
-                <strong>versenyképesek és elérhetőek</strong> legyenek a régió
-                átlagos ajánlataihoz képest. A pontos árat egy rövid beszélgetés
-                után állítjuk össze.
+                Célunk, hogy{" "}
+                <strong>gyors, mégis valósághű becslést</strong> kapj a
+                projektedről. A számok tudatosan{" "}
+                <strong>versenyképesek és elérhetőek</strong> a térség
+                átlagos ajánlataihoz képest. A pontos ajánlatot egy rövid
+                egyeztetés után készítjük el.
               </p>
 
               <div className="bg-white/95 rounded-2xl border border-[#d4ddf4] shadow-[0_18px_50px_rgba(148,163,184,0.45)] p-5 md:p-6 space-y-5">
                 {/* mód: építés vs bontás */}
                 <div>
                   <label className="block text-xs font-semibold text-[#6b7280] mb-1.5 uppercase tracking-[0.14em]">
-                    Számítás típusa
+                    Kalkuláció típusa
                   </label>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     <button
@@ -315,7 +305,7 @@ export default function CalculatorClientHu() {
                   </div>
                 </div>
 
-                {/* projekt típus – csak építés módban */}
+                {/* projekt típus – csak build módban */}
                 {mode === "build" && (
                   <div>
                     <label className="block text-xs font-semibold text-[#6b7280] mb-1.5 uppercase tracking-[0.14em]">
@@ -362,13 +352,13 @@ export default function CalculatorClientHu() {
                   </div>
                 )}
 
-                {/* alapterület + standard / vagy csak alapterület bontásnál */}
+                {/* alapterület + szint */}
                 <div className="grid sm:grid-cols-[1.2fr,0.9fr] gap-4">
                   <div>
                     <label className="block text-xs font-semibold text-[#6b7280] mb-1.5 uppercase tracking-[0.14em]">
                       {mode === "build"
                         ? "Hasznos alapterület"
-                        : "Bontandó épület alapterülete"}
+                        : "Bontandó alapterület"}
                     </label>
                     <div className="flex items-center gap-2">
                       <input
@@ -413,14 +403,14 @@ export default function CalculatorClientHu() {
                               : "bg-white/80 text-[#6b7280] border-[#cbd5f0] hover:border-[#93c5fd]")
                           }
                         >
-                          Premium
+                          Prémium
                         </button>
                       </div>
                     </div>
                   )}
                 </div>
 
-                {/* extra bontás – csak építés módban */}
+                {/* extra bontás – csak build */}
                 {mode === "build" && (
                   <div className="border-t border-[#e2e8f0] pt-4 space-y-3">
                     <label className="flex items-center gap-2 text-sm font-semibold text-[#1f2937]">
@@ -430,7 +420,7 @@ export default function CalculatorClientHu() {
                         onChange={(e) => setHasDemolition(e.target.checked)}
                         className="h-4 w-4 rounded border-[#cbd5f0] text-[#2563eb] focus:ring-[#bfdbfe]"
                       />
-                      Van meglévő épület, amit előtte bontani kell?
+                      Van meglévő épület, amit el kell bontani?
                     </label>
 
                     {hasDemolition && (
@@ -444,9 +434,7 @@ export default function CalculatorClientHu() {
                             min={0}
                             placeholder="pl. 90"
                             value={demolitionArea}
-                            onChange={(e) =>
-                              setDemolitionArea(e.target.value)
-                            }
+                            onChange={(e) => setDemolitionArea(e.target.value)}
                             className="w-full rounded-xl border border-[#cbd5f0] bg-white px-3 py-2.5 text-sm outline-none focus:border-[#60a5fa] focus:ring-2 focus:ring-[#bfdbfe]"
                           />
                           <span className="text-xs text-[#6b7280] font-semibold">
@@ -454,7 +442,7 @@ export default function CalculatorClientHu() {
                           </span>
                         </div>
                         <p className="mt-1 text-[11px] text-[#9ca3af]">
-                          A bontást, gépeket és sitt elszállítást is tartalmazza
+                          Tartalmazza a bontást, gépeket és sitt elszállítást
                           (tájékoztató jelleggel).
                         </p>
                       </div>
@@ -462,7 +450,7 @@ export default function CalculatorClientHu() {
                   </div>
                 )}
 
-                {/* VR – csak építés módban */}
+                {/* VR – csak build */}
                 {mode === "build" && (
                   <div className="border-t border-[#e2e8f0] pt-4 space-y-2">
                     <label className="flex items-center gap-2 text-sm font-semibold text-[#1f2937]">
@@ -472,20 +460,20 @@ export default function CalculatorClientHu() {
                         onChange={(e) => setIncludeVr(e.target.checked)}
                         className="h-4 w-4 rounded border-[#cbd5f0] text-[#2563eb] focus:ring-[#bfdbfe]"
                       />
-                      Kérem VR / 3D bejárással is a projektet
+                      Kérem VR / 3D bejárással is
                     </label>
                     <p className="text-[11px] text-[#9ca3af]">
-                      A VR a szolgáltatási csomag része – az összeg a „Tervezés
-                      + projektkoordináció” sorhoz adódik.
+                      A VR a szolgáltatási csomag része – a díj a „Projekt +
+                      koordináció” tételhez adódik hozzá.
                     </p>
                   </div>
                 )}
 
                 <p className="text-[11px] text-[#9ca3af]">
-                  Az eredmény tájékoztató jellegű. A végleges ár függ a
-                  telektől, a választott anyagoktól, technológiáktól és a
-                  részletes műszaki tartalomtól. Egy rövid telefon után
-                  pontosabb ajánlatot készítünk.
+                  A kalkuláció tájékoztató jellegű. A végleges ár függ a
+                  telektől, anyagoktól, technológiától és a részletes
+                  műszaki tartalomtól. Egy rövid telefon után pontosított
+                  ajánlatot készítünk.
                 </p>
               </div>
             </div>
@@ -504,21 +492,20 @@ export default function CalculatorClientHu() {
                   <div className="relative w-20 h-20 md:w-24 md:h-24 rounded-2xl overflow-hidden border border-[#d1ddff] shadow-[0_10px_28px_rgba(148,163,184,0.6)]">
                     <Image
                       src="/house-blueprint.jpeg"
-                      alt="Projekt és építési koordináció"
+                      alt="Építési terv és projektkoordináció"
                       fill
                       className="object-cover"
                     />
                   </div>
                   <div className="text-xs md:text-sm text-[#1f2937]">
                     <div className="font-semibold mb-1">
-                      A számok úgy vannak beállítva, hogy versenyképesek
-                      legyenek.
+                      A számokat úgy állítottuk be, hogy versenyképesek legyenek.
                     </div>
                     <p className="text-[#4b5563]">
                       Az első egyeztetés után{" "}
                       <strong>konkrét, részletes költségvetést</strong> készítünk,
-                      ahol figyelembe vesszük a telek adottságait, a
-                      kivitelezési szintet és a választott technológiákat.
+                      ahol minden részlet – telek, anyagok, technológiák –
+                      figyelembe van véve.
                     </p>
                   </div>
                 </div>

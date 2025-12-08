@@ -1,6 +1,7 @@
+// app/hu/contact/page.tsx
 import Image from "next/image";
-import LanguageSwitcher from "../components/LanguageSwitcher";
-import MainNav from "../components/MainNav";
+import LanguageSwitcher from "../../components/LanguageSwitcher";
+import MainNav from "../../components/MainNav";
 
 export default function ContactPageHu() {
   return (
@@ -25,8 +26,9 @@ export default function ContactPageHu() {
           </h1>
 
           <p className="max-w-xl mx-auto mt-4 text-[#475569] text-sm md:text-lg leading-relaxed">
-            Kérdésed van? Konzultációt szeretnél?  
-            Írd meg a projekted főbb adatait, és személyre szabott megoldást készítünk.
+            Kérdésed van az építkezéssel kapcsolatban?  
+            Írd meg röviden a projekt fő adatait, és személyre szabott
+            javaslatot készítünk.
           </p>
 
           <div className="w-20 h-[2px] mx-auto mt-6 bg-gradient-to-r from-transparent via-[#1d4ed8] to-transparent rounded-full" />
@@ -35,15 +37,16 @@ export default function ContactPageHu() {
         {/* Kontakt blokkok */}
         <section className="relative z-10 max-w-5xl mx-auto px-4 md:px-6 pb-24">
           <div className="grid md:grid-cols-2 gap-10 items-start">
-            {/* Bal oldal – Kontakt info */}
+            {/* Bal oldal – elérhetőségek */}
             <div className="bg-white/95 p-7 md:p-8 rounded-2xl shadow-[0_15px_45px_rgba(145,163,185,0.35)] border border-[#d4ddee]">
               <h2 className="text-2xl font-semibold mb-3 md:mb-4 text-[#1e3a8a]">
                 Elérhetőségek
               </h2>
 
               <p className="text-[#475569] mb-6 text-sm md:text-base">
-                Munkanapokon állunk rendelkezésedre.  
-                A leghatékonyabb, ha röviden összefoglalod az építési terved.
+                Munkanapokon érhetsz el bennünket. A legjobb, ha röviden
+                összefoglalod az építési terved: új ház, felújítás vagy
+                kereskedelmi projekt.
               </p>
 
               <div className="space-y-4 text-[#1f2937] text-sm md:text-base">
@@ -70,17 +73,18 @@ export default function ContactPageHu() {
               </div>
             </div>
 
-            {/* Jobb oldal – Üzenetküldés */}
+            {/* Jobb oldal – üzenetküldő form (statikus, NINCS onSubmit) */}
             <div className="bg-white/95 p-7 md:p-8 rounded-2xl shadow-[0_15px_45px_rgba(145,163,185,0.35)] border border-[#d4ddee]">
               <h2 className="text-2xl font-semibold mb-3 md:mb-4 text-[#1e3a8a]">
                 Írj nekünk üzenetet
               </h2>
 
               <p className="text-[#475569] mb-4 text-sm md:text-base">
-                Írd le röviden a projektet: helyszín, alapterület, új építés vagy felújítás.
+                Írd le röviden a projektet: helyszín, alapterület, új építés
+                vagy felújítás, és tervezett időzítés.
               </p>
 
-              <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+              <form className="space-y-4">
                 <div>
                   <label className="block text-xs font-semibold text-[#6b7280] mb-1">
                     Név
@@ -122,7 +126,8 @@ export default function ContactPageHu() {
                 </button>
 
                 <p className="text-[11px] text-[#9ca3af] text-center">
-                  Az üzenet elküldésével hozzájárulsz, hogy felvegyük veled a kapcsolatot.
+                  Az üzenet elküldésével hozzájárulsz, hogy felvegyük veled a
+                  kapcsolatot.
                 </p>
               </form>
             </div>

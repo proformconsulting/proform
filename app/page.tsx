@@ -1,7 +1,8 @@
-// app/sk/page.tsx
+// app/page.tsx  (szlovák főoldal)
+
 import type { Metadata } from "next";
 import Image from "next/image";
-import MainNav from "../components/MainNav";
+import MainNav from "./components/MainNav";
 
 export const metadata: Metadata = {
   title:
@@ -149,7 +150,8 @@ export default function HomeSk() {
 
               <p className="text-[#4b5563] mb-4 text-sm md:text-base">
                 Ešte pred realizáciou uvidíte, ako bude váš dom či projekt
-                vyzerať. VR prehliadka eliminuje drahé chyby a zrýchľuje rozhodovanie.
+                vyzerať. VR prehliadka eliminuje drahé chyby a zrýchľuje
+                rozhodovanie.
               </p>
 
               <ul className="text-[#475569] text-xs md:text-sm space-y-2">
@@ -238,9 +240,9 @@ export default function HomeSk() {
               </h2>
 
               <p className="text-[#4b5563] mb-6 max-w-xl">
-                Napíšte nám pár viet o vašom projekte – rodinný dom, rekonštrukcia
-                alebo komerčný objekt. Pripravíme návrh spolupráce a vysvetlíme,
-                ako môžeme prevziať celú koordináciu.
+                Napíšte nám pár viet o vašom projekte – rodinný dom,
+                rekonštrukcia alebo komerčný objekt. Pripravíme návrh
+                spolupráce a vysvetlíme, ako môžeme prevziať celú koordináciu.
               </p>
 
               <div className="flex flex-col md:flex-row md:items-center gap-6">

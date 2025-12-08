@@ -1,3 +1,4 @@
+// app/calculator/page.tsx
 import type { Metadata } from "next";
 import MainNav from "../components/MainNav";
 import CalculatorClient from "./CalculatorClient";
