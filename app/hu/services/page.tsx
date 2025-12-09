@@ -6,9 +6,9 @@ import MainNav from "../../components/MainNav";
 // --- SEO / Meta ---
 export const metadata: Metadata = {
   title:
-    "Szolgáltatások | ProForm Consulting – építési projekt- és koordinációs iroda",
+    "Szolgáltatások | ProForm Consulting – építési projekt és koordinációs iroda",
   description:
-    "ProForm Consulting – teljes körű projekt- és építéskoordináció: családi házak, felújítások, kereskedelmi és ipari épületek. Tervezés, engedélyeztetés, VR-látvány, kivitelezésszervezés és műszaki ellenőrzés egy kézben.",
+    "ProForm Consulting teljes körű projekt és építéskoordináció családi házakhoz, felújításokhoz, kereskedelmi és ipari épületekhez. Tervezés, engedélyezés, VR látvány, kivitelezés szervezés és műszaki ellenőrzés egy kézben.",
   keywords: [
     "ProForm Consulting",
     "szolgáltatások",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     "ipari csarnok",
     "VR látványterv",
     "3D vizualizáció",
-    "építési iroda Dél-Szlovákia",
+    "építési iroda Dél Szlovákia",
   ],
   alternates: {
     canonical: "https://proformconsulting.sk/hu/szolgaltatasok",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     title:
       "Szolgáltatások – ProForm Consulting | Teljes körű építési projektmenedzsment",
     description:
-      "Egy iroda, amely az első ötlettől a kulcsátadásig kézben tartja az egész építkezést: tervezés, engedélyek, mesterek, VR, kivitelezés és műszaki ellenőrzés.",
+      "Egy iroda, amely az első ötlettől a kulcsátadásig kézben tartja az egész építkezést. Tervezés, engedélyek, mesterek, VR, kivitelezés és műszaki ellenőrzés átlátható rendszerben.",
     url: "https://proformconsulting.sk/hu/szolgaltatasok",
     type: "website",
     siteName: "ProForm Consulting",
@@ -59,9 +59,9 @@ export default function ServicesHuPage() {
     "@type": "LocalBusiness",
     name: "ProForm Consulting",
     description:
-      "Építési projekt- és koordinációs iroda: családi házak, felújítások, kereskedelmi és ipari épületek teljes körű szervezése Dél-nyugat Szlovákia régiójában.",
+      "Építési projekt és koordinációs iroda. Családi házak, felújítások, kereskedelmi és ipari épületek teljes körű szervezése Dél nyugat Szlovákia régiójában.",
     url: "https://proformconsulting.sk/hu/szolgaltatasok",
-    areaServed: "Dél-nyugat Szlovákia",
+    areaServed: "Dél nyugat Szlovákia",
     serviceType: [
       "építési projektmenedzsment",
       "építkezés koordináció",
@@ -99,51 +99,51 @@ export default function ServicesHuPage() {
           {/* Szöveg */}
           <div>
             <p className="text-[11px] md:text-xs tracking-[0.24em] uppercase text-[#64748b] mb-3">
-              Építési projekt- és koordinációs iroda
+              Építési projekt és koordinációs team
             </p>
             <h1
               id="services-hu-hero"
               className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4 bg-gradient-to-r from-[#1f4fa5] via-[#3e6fb8] to-[#7fa4dd] text-transparent bg-clip-text"
             >
-              Az első ötletről a kulcsátadásig mindent átvállalunk.
+              Az első ötlettől a kulcsátadásig átvállaljuk az építkezés terhét.
             </h1>
             <h2 className="text-lg md:text-xl font-semibold text-[#1f2937] mb-5">
-              Egy iroda, amely kézben tartja az egész építkezést.
+              Egy iroda, amely összefogja és irányítja az egész folyamatot.
             </h2>
             <p className="text-[#4b5563] text-sm md:text-base leading-relaxed mb-6 max-w-xl">
-              A célunk, hogy az építkezés alatt ne ön rohangáljon a mesterek,
-              engedélyek és papírok után. A teljes folyamatot – tervezést,
-              VR-látványt, engedélyeztetést, kivitelezés-szervezést és
-              műszaki ellenőrzést – a mi csapatunk intézi. Ön közben
-              nyugodtan élheti az életét.
+              A célunk, hogy az építkezés alatt ne ön próbálja egyedül kézben
+              tartani a szakembereket, engedélyeket, határidőket és számlákat.
+              A tervezést, a VR látványt, az engedélyezést, a kivitelezés
+              szervezését és a műszaki ellenőrzést a mi csapatunk viszi,
+              ön pedig biztonságban hozhat döntéseket egy átlátható rendszerben.
             </p>
 
             <div className="grid sm:grid-cols-3 gap-4 text-xs md:text-sm">
               <div className="bg-white/90 rounded-xl p-4 shadow-[0_10px_30px_rgba(148,163,184,0.35)] border border-[#d4ddf4]">
                 <div className="text-[#2563eb] font-semibold mb-1">
-                  Nincs idegeskedés
+                  Kevesebb stressz
                 </div>
                 <p className="text-[#4b5563]">
-                  Nem kell mestereket keresni, időpontokat egyeztetni vagy
-                  konfliktusokat kezelni.
+                  Nem kell szakembereket keresni, egyeztetni vagy vitás helyzeteket
+                  kezelni. Ezeket mi vállaljuk át.
                 </p>
               </div>
               <div className="bg-white/90 rounded-xl p-4 shadow-[0_10px_30px_rgba(148,163,184,0.35)] border border-[#d4ddf4]">
                 <div className="text-[#2563eb] font-semibold mb-1">
-                  Gyorsabb haladás
+                  Gyorsabb, szervezett haladás
                 </div>
                 <p className="text-[#4b5563]">
-                  Szerződött, bevált partnerekkel dolgozunk – nem kell éveket
-                  várni egy-egy szakemberre.
+                  Bevált, szerződött partnerekkel dolgozunk. A lépések egymásra
+                  épülnek, nincs állandó újratervezés.
                 </p>
               </div>
               <div className="bg-white/90 rounded-xl p-4 shadow-[0_10px_30px_rgba(148,163,184,0.35)] border border-[#d4ddf4]">
                 <div className="text-[#2563eb] font-semibold mb-1">
-                  Átlátható rendszer
+                  Átlátható felelősség
                 </div>
                 <p className="text-[#4b5563]">
-                  Minden lépésről tájékoztatjuk, de a szervezés és felelősség
-                  végig a miénk.
+                  Egy iroda felel a folyamatért. Ön mindig tudja, kihez forduljon
+                  kérdés vagy döntés esetén.
                 </p>
               </div>
             </div>
@@ -164,7 +164,7 @@ export default function ServicesHuPage() {
                 TELJES KÖRŰ PROJEKTVEZETÉS
               </div>
               <div className="text-sm font-medium">
-                Egy partner az egész építkezéséhez
+                Egy partner az egész építkezéshez
               </div>
             </div>
           </div>
@@ -181,38 +181,39 @@ export default function ServicesHuPage() {
             id="hu-process-heading"
             className="text-2xl md:text-3xl font-bold mb-3 bg-gradient-to-r from-[#6b7280] via-[#1d4ed8] to-[#60a5fa] text-transparent bg-clip-text"
           >
-            Hogyan dolgozunk? Lépésről lépésre
+            Hogyan dolgozunk együtt? Hat lépésben
           </h2>
           <p className="text-[#4b5563] mb-8 text-sm md:text-base max-w-3xl">
-            Az egész folyamat egy kézben marad. Ön pontosan tudja, hol tart a
-            projekt, de a napi szintű intézkedést mi végezzük.
+            A folyamat elejétől a végéig egy kézben marad. Ön pontosan látja,
+            hol tart a projekt, de a napi szervezés, egyeztetés és ellenőrzés
+            a mi feladatunk.
           </p>
 
           <div className="grid md:grid-cols-3 gap-5 md:gap-6 text-sm">
             {[
               {
-                title: "1. Konzultáció & igényfelmérés",
-                text: "Megismerjük az elképzeléseit, a költségkeretet és a határidőket, majd felrajzoljuk a projekt kereteit.",
+                title: "1. Konzultáció és igényfelmérés",
+                text: "Átbeszéljük a célokat, a költségkeretet, a határidőt és a műszaki elképzeléseket. Meghatározzuk a projekt kereteit.",
               },
               {
-                title: "2. Tervezés & VR-látvány",
-                text: "3D modell és VR bejárás: már az elején láthatja, milyen lesz a kész otthon vagy üzlet.",
+                title: "2. Tervezés és VR látvány",
+                text: "Elkészítjük a terveket, majd VR bejáráson mutatjuk meg, hogyan fog kinézni a kész otthon vagy üzlet.",
               },
               {
-                title: "3. Engedélyek & adminisztráció",
-                text: "Minden beadványt, papírt és hatósági egyeztetést mi intézünk – önnek semmit sem kell beadnia.",
+                title: "3. Engedélyek és adminisztráció",
+                text: "A szükséges beadványokat, hatósági egyeztetéseket és dokumentumokat mi kezeljük. Nem önnek kell a hivatalokat járni.",
               },
               {
-                title: "4. Mesterek & cégek kiválasztása",
-                text: "A saját, bevált hálózatunkból választjuk ki az optimális csapatot az adott projektre.",
+                title: "4. Szakemberek és cégek kiválasztása",
+                text: "A saját, kipróbált hálózatunkból állítjuk össze a csapatot. Minden szakág a megfelelő időben lép be.",
               },
               {
                 title: "5. Kivitelezés koordinálása",
-                text: "Ütemezés, ellenőrzés, minőség, elszámolás – mi tartjuk kézben a folyamatot az alapoktól a befejezésig.",
+                text: "Ütemezés, minőségellenőrzés, jelenléti pontok, elszámolás. A munkafolyamatot követjük és irányítjuk.",
               },
               {
-                title: "6. Átvétel & kulcsátadás",
-                text: "Ellenőrzés, hibajavítás, dokumentáció, majd kulcsrakész átadás. Ön már csak beköltözik.",
+                title: "6. Átvétel és kulcsátadás",
+                text: "Ellenőrizzük a munkát, elvégeztetjük a javításokat, összegyűjtjük a dokumentációt, majd átadjuk a kész ingatlant.",
               },
             ].map((item) => (
               <article
@@ -250,7 +251,7 @@ export default function ServicesHuPage() {
                 VR BEJÁRÁS
               </div>
               <div className="font-medium">
-                Lépjen be otthonába még az építkezés előtt
+                Lépjen be az épületbe még az átadás előtt
               </div>
             </div>
           </div>
@@ -260,17 +261,18 @@ export default function ServicesHuPage() {
               id="hu-vr-heading"
               className="text-2xl md:text-3xl font-bold mb-3 text-[#1f2937]"
             >
-              VR-szemüveg: mintha már kész lenne az otthona
+              Nem csak rajzon látja, hanem be is járhatja a teret
             </h2>
             <p className="text-[#4b5563] text-sm md:text-base mb-4 leading-relaxed">
-              A VR-technológia segítségével valós méretben sétálhat végig a
-              jövőbeli házán vagy üzletén. Látja a tér érzetét, a fényt, a
-              bútorokat, a burkolatokat – mintha már berendezett lenne.
+              A VR technológia segítségével valós méretben sétálhat végig a
+              jövőbeli házon vagy üzleten. Megérzi a terek arányát, a
+              belmagasságot, a fényt, a bútorok elhelyezését, még mielőtt egy
+              tégla a helyére kerülne.
             </p>
             <ul className="text-[#475569] text-sm space-y-2">
-              <li>• reális térérzet és arányok</li>
-              <li>• anyagok, színek, világítás variálása</li>
-              <li>• magabiztos döntések, kevesebb drága utólagos módosítás</li>
+              <li>• reális térérzet és arányok a tervek alapján</li>
+              <li>• anyagok, színek, világítás variálása a döntés előtt</li>
+              <li>• kevesebb drága utólagos módosítás, biztosabb döntések</li>
             </ul>
           </div>
         </div>
@@ -287,30 +289,30 @@ export default function ServicesHuPage() {
               id="hu-team-heading"
               className="text-2xl md:text-3xl font-bold mb-3 bg-gradient-to-r from-[#6b7280] via-[#1d4ed8] to-[#60a5fa] text-transparent bg-clip-text"
             >
-              Saját szakember-hálózat, szerződött partnerekkel
+              Saját szakember hálózat, szerződött partnerekkel
             </h2>
             <p className="text-[#4b5563] text-sm md:text-base mb-4 leading-relaxed">
-              Nem a Google-ről választunk mestert az utolsó pillanatban. Olyan
-              csapatokkal dolgozunk, akikkel évek óta együttműködünk, és
-              pontosan tudjuk, milyen minőséget képviselnek.
+              Nem véletlenszerűen választott alvállalkozókkal dolgozunk. Olyan
+              csapatokkal működünk együtt, akiknek a munkáját ismerjük, és
+              akikhez rendszeresen visszatérünk új projektek során is.
             </p>
             <p className="text-[#4b5563] text-sm md:text-base mb-4 leading-relaxed">
-              Önnek nem kell külön kőművest, villanyszerelőt, fűtésszerelőt,
-              burkolót keresnie – mi hozzuk a komplett rendszert.
+              Önnek nem kell külön szakágakat keresni. Mi hozzuk a komplett
+              rendszert az alapoktól a befejező munkákig.
             </p>
 
             <div className="grid grid-cols-2 gap-3 text-xs md:text-sm text-[#475569]">
               <ul className="space-y-1">
                 <li>• tervezők, statikusok</li>
-                <li>• alapozás, szerkezetépítés</li>
-                <li>• tetőfedés</li>
-                <li>• víz–gáz–fűtés</li>
+                <li>• alapozás és szerkezetépítés</li>
+                <li>• tetőszerkezet és fedés</li>
+                <li>• víz, gáz, fűtés rendszerek</li>
               </ul>
               <ul className="space-y-1">
                 <li>• villanyszerelés</li>
-                <li>• burkolás, padlók</li>
-                <li>• bútor, asztalos munka</li>
-                <li>• homlokzat, hőszigetelés</li>
+                <li>• burkolás és padlók</li>
+                <li>• asztalos és bútor munkák</li>
+                <li>• homlokzat és hőszigetelés</li>
               </ul>
             </div>
           </div>
@@ -325,7 +327,7 @@ export default function ServicesHuPage() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
             <div className="absolute bottom-3 left-4 text-xs md:text-sm text-white">
               <div className="uppercase tracking-[0.22em] text-[10px]">
-                SZAKEMBER-HÁLÓZAT
+                SZAKEMBER HÁLÓZAT
               </div>
               <div className="font-medium">Bevált mesterek, stabil csapat</div>
             </div>
@@ -348,11 +350,14 @@ export default function ServicesHuPage() {
             </h2>
 
             <p className="text-[#4b5563] max-w-2xl mb-6 text-sm md:text-base">
-              Írjon pár sort arról, mit szeretne – új családi ház, teljes
-              felújítás vagy nagyobb üzleti / ipari épület. Válaszként egy
-              átlátható, lépésről lépésre felépített javaslatot kap.
+              Írjon pár sort arról, mit tervez. Új családi ház, teljes
+              felújítás, csarnoképítés vagy üzleti épület. Válaszként egy
+              átlátható, lépésről lépésre felépített javaslatot kap, hogy
+              pontosan lássa, hogyan tudjuk átvenni a szervezést és a
+              felelősséget.
             </p>
 
+            {/* A stílus maradjon egységes, a többi oldal is így néz ki */}
             <div className="flex flex-col md:flex-row md:items-center gap-5 md:gap-6">
               <div className="text-[#1f2937] text-sm md:text-base">
                 <div className="mb-1">
@@ -361,7 +366,7 @@ export default function ServicesHuPage() {
                     href="mailto:proformconsulting@azet.sk"
                     className="font-semibold text-[#1d4ed8] hover:underline"
                   >
-                    proformconsulting@azet.sk
+                    proformconsulting@gmail.com
                   </a>
                 </div>
                 <div className="opacity-80 text-sm">
