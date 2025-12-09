@@ -120,7 +120,7 @@ export default function HomeSk() {
                 Prémiové riadenie stavebných a demolačných projektov
               </span>
               <span className="block text-[1.8rem] sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight bg-gradient-to-r from-[#1f4fa5] via-[#3e6fb8] to-[#7fa4dd] bg-clip-text text-transparent">
-                Váš stavebný projekt pod maximálnou kontrolou – od návrhu až po
+                Váš stavebný projekt pod maximálnou kontrolou od návrhu až po
                 odovzdanie kľúčov.
               </span>
             </h1>
@@ -141,7 +141,7 @@ export default function HomeSk() {
               <br />
               ProForm Consulting prináša práve tento systém: profesionálne,
               transparentné a zodpovedné riadenie projektu. Od návrhu cez VR
-              vizualizácie a demolačné procesy až po dohľad nad realizáciou –
+              vizualizácie a demolačné procesy až po dohľad nad realizáciou 
               všetko držíme v jednej ruke, aby realizácia prebehla stabilne,
               predvídateľne a vo vysokej kvalite.
             </p>
@@ -204,7 +204,7 @@ export default function HomeSk() {
                   objektoch
                 </li>
                 <li>
-                  • Vizualizácie na podporu rozhodovania – menej improvizácie,
+                  • Vizualizácie na podporu rozhodovania menej improvizácie,
                   viac predvídateľnosti
                 </li>
               </ul>
@@ -317,7 +317,7 @@ export default function HomeSk() {
               id="testimonials-heading"
               className="text-2xl md:text-3xl font-bold mb-6 bg-gradient-to-r from-[#4b5563] via-[#1d4ed8] to-[#60a5fa] bg-clip-text text-transparent"
             >
-              Klienti, ktorí s nami už spolupracovali – namiesto chaosu zažili
+              Klienti, ktorí s nami už spolupracovali namiesto chaosu zažili
               riešenia
             </h2>
 
@@ -361,7 +361,7 @@ export default function HomeSk() {
                 <p className="text-sm md:text-[0.9rem] text-[#374151] leading-relaxed mb-4">
                   „Ich najväčšou hodnotou je rýchle konanie. Keď vznikol
                   problém, nečakali sme týždne na odpoveď. Tím bol zladený,
-                  každý vedel, čo má robiť – a to je v dnešnom stavebníctve
+                  každý vedel, čo má robiť a to je v dnešnom stavebníctve
                   skôr výnimka.“
                 </p>
                 <p className="text-xs font-semibold text-[#1f2937]">
@@ -387,7 +387,7 @@ export default function HomeSk() {
                 id="contact-heading"
                 className="text-2xl md:text-3xl font-bold mb-4 text-[#111827]"
               >
-                Opíšte v niekoľkých vetách, čo sa chystá – alebo čo má zmiznúť
+                Opíšte v niekoľkých vetách, čo sa chystá alebo čo má zmiznúť
               </h2>
 
               <p className="text-[#4b5563] mb-6 max-w-xl text-sm md:text-base leading-relaxed">
