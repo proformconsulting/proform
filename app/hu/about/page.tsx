@@ -65,86 +65,38 @@ export default function About() {
       <div className="pointer-events-none absolute bottom-[-260px] left-1/4 w-[460px] h-[460px] rounded-full bg-[#e0e6f5] blur-[180px] opacity-80" />
       <div className="pointer-events-none absolute inset-0 opacity-[0.35] bg-[radial-gradient(circle_at_top,#e0e7ff_0,#f5f7fb_55%)] mix-blend-screen" />
 
-      {/* HERO – fő üzenet, 2 oszlop */}
+      {/* HERO – középre igazított prémium blokk */}
       <section
         id="about-hero"
         className="relative w-full py-20 md:py-24 bg-gradient-to-b from-white/95 via-[#f2f5fd]/96 to-[#eef2fb]"
         aria-labelledby="about-hero-heading"
       >
-        <div className="max-w-6xl mx-auto px-4 md:px-6 grid md:grid-cols-[1.2fr,1fr] gap-10 items-center relative z-10">
-          {/* Szöveg */}
-          <div>
-            <p className="text-[11px] md:text-xs tracking-[0.24em] uppercase text-[#64748b] mb-3">
-              Építési projektstúdió &amp; koordináció
-            </p>
-            <h1
-              id="about-hero-heading"
-              className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4 bg-gradient-to-r from-[#1f4fa5] via-[#3e6fb8] to-[#7fa4dd] text-transparent bg-clip-text"
-            >
-              Egy iroda, amely évek óta egyben tartja a teljes építési
-              folyamatot.
-            </h1>
-            <h2 className="text-lg md:text-xl font-semibold text-[#1f2937] mb-5">
-              Nem csak házakat építünk, hanem működő rendszert tapasztalatra
-              építve, veled együttműködve.
-            </h2>
-            <p className="text-[#4b5563] max-w-xl text-sm md:text-base leading-relaxed mb-6">
-              Évek óta építési és bontási projekteken dolgozunk családi
-              házaktól a nagyobb ipari és kereskedelmi épületekig. Az
-              építőiparban otthonosan mozgunk, stabil háttérrel, megbízható
-              szakemberekkel és olyan, sokszor kipróbált folyamattal, amely az
-              első ötlettől a kulcsátadásig átlátható keretet ad a projektednek.
-            </p>
+        <div className="max-w-5xl mx-auto px-4 md:px-6 flex flex-col items-center text-center relative z-10">
+          <p className="inline-block text-[11px] md:text-xs tracking-[0.25em] uppercase text-[#64748b] mb-3">
+            Prémium építési projektstúdió
+          </p>
 
-            <div className="grid sm:grid-cols-3 gap-4 text-xs md:text-sm">
-              <div className="bg-white/90 rounded-xl p-4 shadow-[0_10px_30px_rgba(148,163,184,0.35)] border border-[#d4ddf4]">
-                <div className="text-[#2563eb] font-semibold mb-1">
-                  Több éves tapasztalat
-                </div>
-                <p className="text-[#4b5563]">
-                  Családi házak, csarnokok, üzletek, raktárak és bontási
-                  projektek a hátunk mögött valós, terepi gyakorlat.
-                </p>
-              </div>
-              <div className="bg-white/90 rounded-xl p-4 shadow-[0_10px_30px_rgba(148,163,184,0.35)] border border-[#d4ddf4]">
-                <div className="text-[#2563eb] font-semibold mb-1">
-                  Stabil háttér
-                </div>
-                <p className="text-[#4b5563]">
-                  Régóta együtt dolgozó kivitelezők, partnervállalkozások és
-                  szakágak, akiket ismerünk és akikkel újra és újra dolgozunk.
-                </p>
-              </div>
-              <div className="bg-white/90 rounded-xl p-4 shadow-[0_10px_30px_rgba(148,163,184,0.35)] border border-[#d4ddf4]">
-                <div className="text-[#2563eb] font-semibold mb-1">
-                  Rendszerszemlélet
-                </div>
-                <p className="text-[#4b5563]">
-                  Projekt, engedélyek, kivitelezés, bontás és kommunikáció
-                  mindez egy kézben, egy felelős irodánál.
-                </p>
-              </div>
-            </div>
-          </div>
+          <h1
+            id="about-hero-heading"
+            className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4 bg-gradient-to-r from-[#1f4fa5] via-[#3e6fb8] to-[#7fa4dd] text-transparent bg-clip-text"
+          >
+            Építési projektek egy kézben
+          </h1>
 
-          {/* Hero kép */}
-          <div className="relative h-56 md:h-72 lg:h-80 rounded-3xl overflow-hidden border border-[#d0d7e6] bg-white shadow-[0_18px_50px_rgba(148,163,184,0.5)]">
-            <Image
-              src="/about-team.jpeg"
-              alt="ProForm Consulting csapat és projektvezetés"
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover"
-              priority
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
-            <div className="absolute bottom-3 left-4 text-xs md:text-sm text-white">
-              <div className="uppercase tracking-[0.22em] text-[10px]">
-                PROJECT TEAM
-              </div>
-              <div className="font-medium">Összehangolt kivitelezői hálózat</div>
-            </div>
-          </div>
+          <h2 className="text-lg md:text-xl font-semibold text-[#1f2937] max-w-2xl mb-5">
+            Egy iroda amely évek óta fogja össze a teljes építési folyamatot a
+            tervezéstől az átadásig.
+          </h2>
+
+          <p className="text-[#4b5563] max-w-2xl text-sm md:text-base leading-relaxed">
+            Építési és bontási projekteken dolgozunk családi házaktól a nagyobb
+            ipari és kereskedelmi épületekig. Stabil szakmai háttérrel
+            megbízható kivitelezői hálózattal és olyan folyamattal kísérjük a
+            projekteket amely az első ötlettől a kulcsátadásig átlátható
+            keretet ad minden döntésnek.
+          </p>
+
+          <div className="w-20 h-[2px] mx-auto mt-6 bg-gradient-to-r from-transparent via-[#1d4ed8] to-transparent rounded-full" />
         </div>
       </section>
 
@@ -165,40 +117,40 @@ export default function About() {
             </h2>
 
             <p className="text-[#4b5563] mb-4 leading-relaxed text-sm sm:text-base">
-              Egy olyan iroda vagyunk, amely évek óta{" "}
+              Egy olyan iroda vagyunk amely évek óta{" "}
               <span className="font-semibold">
                 kifejezetten építési és bontási projektekre specializálódott
               </span>
-              . Nem egy-egy munkafázist vállalunk, hanem az egész folyamat
-              összefogását: a tervezéstől a bontáson és földmunkán át a
+              . Nem egy-egy munkafázist vállalunk hanem az egész folyamat
+              összefogását a tervezéstől a bontáson és földmunkán át a
               kivitelezésig és átadásig.
             </p>
 
             <p className="text-[#4b5563] leading-relaxed text-sm sm:text-base mb-4">
-              Csapatunk szakemberekből, partnervállalkozásokból és mesterekből
-              áll, akik hosszú évek óta dolgoznak együtt. A háttérben egy
-              összehangolt hálózat működik, amely képes a kisebb ingatlanoktól
-              a nagyobb ipari és kereskedelmi épületekig végigvinni a
+              Csapatunk szakemberekből partnervállalkozásokból és mesterekből
+              áll akik hosszú évek óta dolgoznak együtt. A háttérben egy
+              összehangolt hálózat működik amely képes a kisebb ingatlanoktól a
+              nagyobb ipari és kereskedelmi épületekig végigvinni a
               projekteket bontástól az új építésig.
             </p>
 
             <p className="text-[#4b5563] leading-relaxed text-sm sm:text-base mb-4">
-              Dolgoztunk már gyárak, hangárok, csarnokok, raktárak, üzletek,
-              éttermek, családi házak és lakóépületek kivitelezésén és
-              bontásán. Végeztünk talajmunkákat, útépítést és közlekedési
-              felületek kialakítását új lakónegyedeknél is a teljes
-              folyamatot végigkövetve, nem csak egy részletre koncentrálva.
+              Dolgoztunk már gyárak hangárok csarnokok raktárak üzletek
+              éttermek családi házak és lakóépületek kivitelezésén és
+              bontásán. Végeztünk talajmunkákat útépítést és közlekedési
+              felületek kialakítását új lakónegyedeknél is a teljes folyamatot
+              végigkövetve nem csak egy részletre koncentrálva.
             </p>
 
             <p className="text-[#4b5563] leading-relaxed text-sm sm:text-base">
-              Fontos számunkra, hogy{" "}
+              Fontos számunkra hogy{" "}
               <span className="font-semibold">
-                egyértelmű kommunikációt, kiszámítható jelenlétet és felelős
+                egyértelmű kommunikációt kiszámítható jelenlétet és felelős
                 irányítást
               </span>{" "}
-              kapj tudd, kihez fordulhatsz, és legyen egy partner, aki
-              végigviszi veled a projektet nem tűnik el, amikor bonyolultabbá
-              válik a helyzet.
+              kapj. Tudd kihez fordulhatsz és legyen egy partner aki végigviszi
+              veled a projektet nem tűnik el amikor bonyolultabbá válik a
+              helyzet.
             </p>
           </div>
 
@@ -217,7 +169,7 @@ export default function About() {
                 REAL PROJECTS
               </div>
               <div className="font-medium">
-                Ipari, lakó és kereskedelmi terek valós tapasztalattal
+                Ipari lakó és kereskedelmi terek valós tapasztalattal
               </div>
             </div>
           </div>
@@ -246,7 +198,7 @@ export default function About() {
                 VR &amp; PLANNING
               </div>
               <div className="font-medium">
-                Látható, átgondolt projekt a kivitelezés előtt
+                Látható átgondolt projekt a kivitelezés előtt
               </div>
             </div>
           </div>
@@ -261,10 +213,9 @@ export default function About() {
             </h2>
 
             <p className="text-[#4b5563] mb-4 leading-relaxed text-sm sm:text-base">
-              A célunk, hogy az építkezés ne egy kaotikus, stresszes időszak
-              legyen, ahol minden nap új meglepetés ér. Nem neked kell
-              szakembereket keresni, időpontokat egyeztetni vagy vitás helyzeteket
-              kezelni {" "}
+              A célunk hogy az építkezés ne kaotikus stresszes időszak legyen
+              ahol minden nap új meglepetés ér. Nem neked kell szakembereket
+              keresni időpontokat egyeztetni vagy vitás helyzeteket kezelni{" "}
               <span className="font-semibold">
                 mi egyben átvállaljuk a folyamat irányítását
               </span>
@@ -281,12 +232,12 @@ export default function About() {
             </ul>
 
             <p className="text-[#4b5563] leading-relaxed text-sm sm:text-base">
-              Egy olyan irodát építünk, ahol{" "}
-              <span className="font-semibold">valódi csapatmunka</span> zajlik,
-              nem pedig ad-hoc döntések sorozata. Előre felépített, többször
-              kipróbált folyamat mentén dolgozunk, hogy a projekted
+              Egy olyan irodát építünk ahol{" "}
+              <span className="font-semibold">valódi csapatmunka</span> zajlik
+              nem pedig ad hoc döntések sorozata. Előre felépített többször
+              kipróbált folyamat mentén dolgozunk hogy a projekted
               előrehaladása minél kiszámíthatóbb legyen te pedig nyugodtabban
-              tudj dönteni pénzről, időről és műszaki megoldásokról.
+              tudj dönteni pénzről időről és műszaki megoldásokról.
             </p>
           </div>
         </div>

@@ -74,6 +74,7 @@ export default function ProjectsHu() {
 
       <script
         type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
@@ -83,7 +84,7 @@ export default function ProjectsHu() {
       <div className="pointer-events-none absolute bottom-[-260px] left-1/4 w-[460px] h-[460px] rounded-full bg-[#e0e6f5] blur-[180px] opacity-80" />
       <div className="pointer-events-none absolute inset-0 opacity-[0.35] bg-[radial-gradient(circle_at_top,#e0e7ff_0,#f5f7fb_55%)] mix-blend-screen" />
 
-{/* HERO – középre igazított prémium blokk */}
+      {/* HERO – középre igazított prémium blokk */}
       <section
         id="projects-hero"
         className="relative w-full py-20 md:py-24 bg-gradient-to-b from-white/95 via-[#f2f5fd]/96 to-[#eef2fb]"
@@ -126,9 +127,9 @@ export default function ProjectsHu() {
           </h2>
 
           <p className="text-[#4b5563] max-w-3xl text-sm md:text-base mb-8 leading-relaxed">
-            Minden projekt ugyanarra a szakmai alapra épül. Tiszta tervezés,
-            előre felépített rendszer, garanciát adó szakmai struktúra és olyan
-            folyamat, amelyben minden döntés a megfelelő időben születik meg.
+            Minden projekt ugyanarra a szakmai alapra épül. Tiszta tervezés
+            előre felépített rendszer garanciát adó szakmai struktúra és olyan
+            folyamat amelyben minden döntés a megfelelő időben születik meg.
           </p>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
@@ -142,7 +143,7 @@ export default function ProjectsHu() {
                   Tudatosan megtervezett otthonok
                 </h3>
                 <p className="text-[#4b5563] leading-relaxed">
-                  Gondos térlogika, fény, funkcionalitás és költségoptimalizált
+                  Gondos térlogika fény funkcionalitás és költségoptimalizált
                   megvalósítás. A fókusz az időtálló minőségen és az átgondolt
                   elrendezésen van.
                 </p>
@@ -163,7 +164,8 @@ export default function ProjectsHu() {
                 </h3>
                 <p className="text-[#4b5563] leading-relaxed">
                   Tudatos alaprajzok és stabil pénzügyi logika. Intelligens
-                  lakásmix és jól értékesíthető lakóterek befektetői szemlélettel.
+                  lakásmix és jól értékesíthető lakóterek befektetői
+                  szemlélettel.
                 </p>
               </div>
               <p className="mt-3 text-[11px] text-[#9ca3af]">
@@ -181,13 +183,13 @@ export default function ProjectsHu() {
                   Hatékony és esztétikus üzleti környezet
                 </h3>
                 <p className="text-[#4b5563] leading-relaxed">
-                  Ügyfél útvonal, működési logika és brand élmény alapján
-                  felépített terek, amelyek támogatják a mindennapi működést
+                  Ügyfél útvonal működési logika és brand élmény alapján
+                  felépített terek amelyek támogatják a mindennapi működést
                   és az üzleti célt.
                 </p>
               </div>
               <p className="mt-3 text-[11px] text-[#9ca3af]">
-                Irodák, rendelők, üzlethelyiségek
+                Irodák rendelők üzlethelyiségek
               </p>
             </article>
 
@@ -201,12 +203,12 @@ export default function ProjectsHu() {
                   Stabil szerkezetek és biztonságos kivitelezés
                 </h3>
                 <p className="text-[#4b5563] leading-relaxed">
-                  Teherbírás, logisztika, statikai rendszer és fegyelmezett
+                  Teherbírás logisztika statikai rendszer és fegyelmezett
                   ütemezés. A cél a megbízható és határidőn belüli átadás.
                 </p>
               </div>
               <p className="mt-3 text-[11px] text-[#9ca3af]">
-                Csarnokok, raktárak, bontási munkák
+                Csarnokok raktárak bontási munkák
               </p>
             </article>
           </div>
@@ -224,9 +226,9 @@ export default function ProjectsHu() {
           </h2>
 
           <p className="text-[#4b5563] mb-8 text-sm md:text-base max-w-3xl leading-relaxed">
-            Egy projekt akkor lesz kiszámítható és veszteségmentes, ha világos
+            Egy projekt akkor lesz kiszámítható és veszteségmentes ha világos
             alapokra épül. Nálunk minden lépés előre felépített rendszer szerint
-            halad, így a döntések időben és biztos háttérrel születnek meg.
+            halad így a döntések időben és biztos háttérrel születnek meg.
           </p>
 
           <div className="grid md:grid-cols-3 gap-5 md:gap-6 text-sm">
@@ -235,9 +237,9 @@ export default function ProjectsHu() {
                 Konzultáció és helyzetelemzés
               </h3>
               <p className="text-[#4b5563] leading-relaxed">
-                Feltérképezzük a célokat, a telek adottságait, a pénzügyi
-                keretet és az időzítést. Valós képet adunk arról, mi működik
-                jól és mi jelentene kockázatot.
+                Feltérképezzük a célokat a telek adottságait a pénzügyi
+                keretet és az időzítést. Valós képet adunk arról mi működik jól
+                és mi jelentene kockázatot.
               </p>
             </article>
 
@@ -247,7 +249,7 @@ export default function ProjectsHu() {
               </h3>
               <p className="text-[#4b5563] leading-relaxed">
                 A tér a valóság méreteiben jelenik meg VR szemüveg segítségével.
-                Így a döntések biztos alapon születnek, még az építés előtt.
+                Így a döntések biztos alapon születnek még az építés előtt.
               </p>
             </article>
 
@@ -267,7 +269,7 @@ export default function ProjectsHu() {
                 Megbízható kivitelezői háttér
               </h3>
               <p className="text-[#4b5563] leading-relaxed">
-                Olyan szakemberekkel dolgozunk együtt, akik stabil, következetes
+                Olyan szakemberekkel dolgozunk együtt akik stabil következetes
                 teljesítményt nyújtanak. Csak bevált csapatokat engedünk be a
                 projektbe.
               </p>
@@ -278,7 +280,7 @@ export default function ProjectsHu() {
                 Koordináció és folyamatos irányítás
               </h3>
               <p className="text-[#4b5563] leading-relaxed">
-                Mi tartjuk a kapcsolatot a kivitelezőkkel, figyeljük az
+                Mi tartjuk a kapcsolatot a kivitelezőkkel figyeljük az
                 ütemezést és ellenőrizzük a minőséget. Minden lépés tiszta és
                 dokumentált.
               </p>
@@ -289,8 +291,8 @@ export default function ProjectsHu() {
                 Ellenőrzés és átadás
               </h3>
               <p className="text-[#4b5563] leading-relaxed">
-                Átvizsgáljuk a munkát, jegyzőkönyvezünk, elvégeztetjük a
-                javításokat és dokumentáljuk az átadás részleteit. Tiszta,
+                Átvizsgáljuk a munkát jegyzőkönyvezünk elvégeztetjük a
+                javításokat és dokumentáljuk az átadás részleteit. Tiszta
                 lezárt projektet adunk át.
               </p>
             </article>
@@ -325,13 +327,13 @@ export default function ProjectsHu() {
               Valós méretű bejárás a biztos döntésekhez
             </h2>
             <p className="text-[#4b5563] text-sm md:text-base mb-4 leading-relaxed">
-              A VR technológia segítségével a teljes tér életre kel. Megtapasztalható
-              a fény, az arányok és a térlogika, így a döntések nem pusztán
-              elképzelésen, hanem valós élményen alapulnak.
+              A VR technológia segítségével a teljes tér életre kel.
+              Megtapasztalható a fény az arányok és a térlogika így a döntések
+              nem pusztán elképzelésen hanem valós élményen alapulnak.
             </p>
             <p className="text-[#475569] text-sm leading-relaxed">
               Ez az egyik legerősebb eszköz a felesleges költségek és a későbbi
-              módosítások megelőzésére, mert a kritikus részletek már a tervezés
+              módosítások megelőzésére mert a kritikus részletek már a tervezés
               idején láthatóvá válnak.
             </p>
           </div>
@@ -354,15 +356,15 @@ export default function ProjectsHu() {
             </h2>
 
             <p className="text-[#4b5563] text-sm md:text-base mb-4 leading-relaxed">
-              A sikeres megvalósítás alapja a megbízható szakmai struktúra. Olyan
-              csapatokkal dolgozunk együtt, akik bizonyították a minőség iránti
-              elkötelezettségüket, és következetes teljesítményt nyújtanak a
-              megvalósítás minden szakaszában.
+              A sikeres megvalósítás alapja a megbízható szakmai struktúra.
+              Olyan csapatokkal dolgozunk együtt akik bizonyították a minőség
+              iránti elkötelezettségüket és következetes teljesítményt
+              nyújtanak a megvalósítás minden szakaszában.
             </p>
 
             <p className="text-[#4b5563] text-sm md:text-base mb-4 leading-relaxed">
-              A koordináció a mi feladatunk. A szakmai ütemezés, az ellenőrzés
-              és a fegyelem biztosítja, hogy a projekt tiszta, átgondolt irány
+              A koordináció a mi feladatunk. A szakmai ütemezés az ellenőrzés
+              és a fegyelem biztosítja hogy a projekt tiszta átgondolt irány
               szerint haladjon végig.
             </p>
 
@@ -412,13 +414,13 @@ export default function ProjectsHu() {
               id="project-contact-heading"
               className="text-2xl md:text-3xl font-bold mb-3 text-[#1f2937]"
             >
-              Kezdjük el felépíteni azt, amiben hosszú távon gondolkodsz
+              Kezdjük el felépíteni azt amiben hosszú távon gondolkodsz
             </h2>
 
             <p className="text-[#4b5563] text-sm md:text-base mb-6 max-w-2xl leading-relaxed">
-              Írd le röviden, hol tart most a projekt vagy az elképzelés. Lehet
-              telek, felújítási terv, csarnok vagy befektetési koncepció. Egy
-              átlátható javaslatot kapsz, amely bemutatja a következő lépéseket,
+              Írd le röviden hol tart most a projekt vagy az elképzelés. Lehet
+              telek felújítási terv csarnok vagy befektetési koncepció. Egy
+              átlátható javaslatot kapsz amely bemutatja a következő lépéseket
               az időkeretet és a megvalósítás szakmai alapjait.
             </p>
 
@@ -439,7 +441,7 @@ export default function ProjectsHu() {
               </div>
 
               <a
-                href="mailto:proformconsulting@azet.sk?subject=Projekt konzultáció érdeklődés"
+                href="mailto:proformconsulting@azet.sk?subject=Projekt%20konzult%C3%A1ci%C3%B3%20%C3%A9rdekl%C5%91d%C3%A9s"
                 className="inline-flex items-center justify-center mt-2 md:mt-0 px-9 md:px-10 py-3.5 md:py-4 rounded-full bg-gradient-to-r from-[#2563eb] to-[#1d4ed8] text-white text-sm md:text-base font-semibold shadow-[0_16px_45px_rgba(37,99,235,0.75)] hover:scale-105 active:scale-100 transition"
               >
                 Projekt konzultáció kérése
