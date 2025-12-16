@@ -1,5 +1,3 @@
-import MainNav from "../components/MainNav";
-
 type Company = {
   brand: string;
   legalName: string;
@@ -23,7 +21,7 @@ const COMPANY: Company = {
   addressLines: ["Mlynská 2", "932 01 Veľký Meder", "Slovensko"],
   email: "proformconsulting@gmail.com",
   phone: "+421 907 361 779",
-  hours: "Pondelok – Piatok: 9:00 – 16:00",
+  hours: "Pondelok – Piatok: 9:00 – 17:00",
 };
 
 const mapsQuery = encodeURIComponent(
@@ -35,8 +33,6 @@ const mapsEmbedSrc = "https://www.google.com/maps?q=" + mapsQuery + "&output=emb
 export default function ContactPageSk() {
   return (
     <main className="min-h-screen bg-[#f5f7fb] relative overflow-hidden text-slate-900">
-      <MainNav />
-
       {/* Pozadie – rovnaké ako na ostatných stránkach */}
       <div className="pointer-events-none absolute -top-40 -left-40 w-[500px] h-[500px] rounded-full bg-[#d7e3ff] blur-[190px] opacity-70" />
       <div className="pointer-events-none absolute bottom-[-260px] right-0 w-[520px] h-[520px] rounded-full bg-[#c4d9ff] blur-[220px] opacity-60" />

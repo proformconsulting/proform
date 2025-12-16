@@ -1,8 +1,6 @@
 // app/sluzby/page.tsx
 import type { Metadata } from "next";
 import Image from "next/image";
-import MainNav from "../components/MainNav";
-
 // --- SEO / Meta ---
 export const metadata: Metadata = {
   title:
@@ -102,7 +100,7 @@ export default function ServicesSkPage() {
   return (
     <main className="min-h-screen bg-[#f5f7fb] text-slate-900 relative overflow-hidden">
       {/* NAV – jazykový prepínač je vnútri */}
-      <MainNav />
+  
 
       {/* SEO – štruktúrované dáta JSON-LD */}
       <script
@@ -370,7 +368,7 @@ export default function ServicesSkPage() {
                     href="mailto:proformconsulting@azet.sk"
                     className="font-semibold text-[#1d4ed8] hover:underline"
                   >
-                    proformconsulting@azet.sk
+                    proformconsulting@gmail.com
                   </a>
                 </div>
                 <div className="opacity-80 text-sm">

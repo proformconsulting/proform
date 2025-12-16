@@ -1,8 +1,11 @@
+
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-// Prémium fontok
+import MainNav from "./components/MainNav";
+import Footer from "./components/Footer";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -15,19 +18,16 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
-// Viewport – mobilbarát beállítás Next módra
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
 };
 
-// Weboldal globális SEO beállításai
 export const metadata: Metadata = {
   metadataBase: new URL("https://proformconsulting.sk"),
   title: {
-    default:
-      "ProForm Consulting – Koordinácia a riadenie stavebných projektov",
+    default: "ProForm Consulting – Koordinácia a riadenie stavebných projektov",
     template: "%s | ProForm Consulting",
   },
   description:
@@ -48,15 +48,12 @@ export const metadata: Metadata = {
   authors: [{ name: "ProForm Consulting" }],
   creator: "ProForm Consulting",
   publisher: "ProForm Consulting",
-
-  // Open Graph (Facebook, LinkedIn)
   openGraph: {
     type: "website",
     locale: "sk_SK",
     url: "https://proformconsulting.sk",
     siteName: "ProForm Consulting",
-    title:
-      "ProForm Consulting – stavebné projektové & koordinačné štúdio",
+    title: "ProForm Consulting – stavebné projektové & koordinačné štúdio",
     description:
       "Komplexná koordinácia a riadenie výstavby. Moderné VR vizualizácie, stavebný dozor a profesionálna príprava projektov.",
     images: [
@@ -68,18 +65,13 @@ export const metadata: Metadata = {
       },
     ],
   },
-
-  // Twitter (X) Cards
   twitter: {
     card: "summary_large_image",
-    title:
-      "ProForm Consulting – stavebné projektové & koordinačné štúdio",
+    title: "ProForm Consulting – stavebné projektové & koordinačné štúdio",
     description:
       "Komplexná koordinácia a riadenie výstavby, VR vizualizácie a stavebný manažment.",
     images: ["/og-cover.jpg"],
   },
-
-  // Technikai SEO
   robots: {
     index: true,
     follow: true,
@@ -91,8 +83,6 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
-
-
 };
 
 export default function RootLayout({
@@ -101,15 +91,12 @@ export default function RootLayout({
   return (
     <html lang="sk" className="scroll-smooth">
       <head>
-        {/* Apple / mobil meta */}
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="format-detection" content="telephone=no" />
 
-        {/* Faviconok */}
         <link rel="icon" type="image/png" href="/favicon.png" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-        {/* Color scheme (Dark / Light támogatás) */}
         <meta name="color-scheme" content="light dark" />
       </head>
 
@@ -122,9 +109,15 @@ export default function RootLayout({
           text-slate-900
         `}
       >
-        {/* Globális wrap – minden oldal erre épül */}
         <div className="relative min-h-screen flex flex-col">
-          {children}
+          {/* NAV (egyszer, globálisan) */}
+          <MainNav />
+
+          {/* OLDAL TARTALOM */}
+          <main className="flex-1 relative">{children}</main>
+
+          {/* FOOTER (egyszer, globálisan) */}
+          <Footer />
         </div>
       </body>
     </html>

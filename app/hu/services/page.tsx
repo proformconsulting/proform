@@ -1,7 +1,6 @@
 // app/hu/szolgaltatasok/page.tsx
 import type { Metadata } from "next";
 import Image from "next/image";
-import MainNav from "../../components/MainNav";
 
 // --- SEO / Meta ---
 export const metadata: Metadata = {
@@ -75,7 +74,6 @@ export default function ServicesHuPage() {
   return (
     <main className="min-h-screen bg-[#f5f7fb] text-slate-900 relative overflow-hidden">
       {/* NAV – benne van a nyelvváltó */}
-      <MainNav />
 
       {/* SEO: JSON-LD struktúrált adat */}
       <script

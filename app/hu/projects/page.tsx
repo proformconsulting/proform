@@ -1,7 +1,6 @@
 // app/hu/projektek/page.tsx
 import type { Metadata } from "next";
 import Image from "next/image";
-import MainNav from "../../components/MainNav";
 
 export const metadata: Metadata = {
   title:
@@ -70,7 +69,7 @@ export default function ProjectsHu() {
 
   return (
     <main className="min-h-screen bg-[#f5f7fb] text-slate-900 relative overflow-hidden">
-      <MainNav />
+  
 
       <script
         type="application/ld+json"
