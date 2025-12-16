@@ -1,6 +1,5 @@
 // app/calculator/page.tsx
 import type { Metadata } from "next";
-import MainNav from "../components/MainNav";
 import CalculatorClient from "./CalculatorClient";
 
 // --- SEO / META ---
@@ -56,7 +55,6 @@ export default function CalculatorPage() {
   return (
     <>
       <main className="min-h-screen bg-[#f5f7fb] text-slate-900 relative overflow-hidden">
-          <MainNav />
         {/* JSON-LD */}
         <script
           type="application/ld+json"

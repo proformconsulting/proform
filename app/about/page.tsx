@@ -1,7 +1,7 @@
 // app/o-nas/page.tsx
 import type { Metadata } from "next";
 import Image from "next/image";
-import MainNav from "../components/MainNav";
+
 
 export const metadata: Metadata = {
   title: "O nás | ProForm Consulting stavebné projekty v jednej kancelárii",
@@ -50,8 +50,7 @@ export default function AboutSk() {
   return (
     <main className="min-h-screen bg-[#f5f7fb] text-slate-900 relative overflow-hidden">
       {/* NAV */}
-      <MainNav />
-
+  
       {/* SEO – JSON-LD */}
       <script
         type="application/ld+json"
