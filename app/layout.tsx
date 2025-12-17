@@ -1,4 +1,3 @@
-
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -26,6 +25,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://proformconsulting.sk"),
+
   title: {
     default: "ProForm Consulting – Koordinácia a riadenie stavebných projektov",
     template: "%s | ProForm Consulting",
@@ -48,6 +48,17 @@ export const metadata: Metadata = {
   authors: [{ name: "ProForm Consulting" }],
   creator: "ProForm Consulting",
   publisher: "ProForm Consulting",
+
+  // ✅ FAVICON / APP ICONS (böngésző fül + iPhone ikon)
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/favicon.png", type: "image/png", sizes: "512x512" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+    shortcut: ["/favicon.ico"],
+  },
+
   openGraph: {
     type: "website",
     locale: "sk_SK",
@@ -65,6 +76,7 @@ export const metadata: Metadata = {
       },
     ],
   },
+
   twitter: {
     card: "summary_large_image",
     title: "ProForm Consulting – stavebné projektové & koordinačné štúdio",
@@ -72,6 +84,7 @@ export const metadata: Metadata = {
       "Komplexná koordinácia a riadenie výstavby, VR vizualizácie a stavebný manažment.",
     images: ["/og-cover.jpg"],
   },
+
   robots: {
     index: true,
     follow: true,
@@ -93,10 +106,6 @@ export default function RootLayout({
       <head>
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="format-detection" content="telephone=no" />
-
-        <link rel="icon" type="image/png" href="/favicon.png" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-
         <meta name="color-scheme" content="light dark" />
       </head>
 
@@ -110,13 +119,8 @@ export default function RootLayout({
         `}
       >
         <div className="relative min-h-screen flex flex-col">
-          {/* NAV (egyszer, globálisan) */}
           <MainNav />
-
-          {/* OLDAL TARTALOM */}
           <main className="flex-1 relative">{children}</main>
-
-          {/* FOOTER (egyszer, globálisan) */}
           <Footer />
         </div>
       </body>
