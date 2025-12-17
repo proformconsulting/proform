@@ -30,8 +30,10 @@ export const metadata: Metadata = {
     default: "ProForm Consulting – Koordinácia a riadenie stavebných projektov",
     template: "%s | ProForm Consulting",
   },
+
   description:
     "Kompletné riadenie stavebných projektov – od projektovej prípravy, VR vizualizácií, koordinácie profesií až po odovzdanie hotovej stavby. Stavebné štúdio ProForm Consulting.",
+
   keywords: [
     "ProForm Consulting",
     "stavebný projekt",
@@ -45,20 +47,22 @@ export const metadata: Metadata = {
     "Dunajská Streda",
     "projektovanie",
   ],
+
   authors: [{ name: "ProForm Consulting" }],
   creator: "ProForm Consulting",
   publisher: "ProForm Consulting",
 
-  // ✅ FAVICON / APP ICONS (böngésző fül + iPhone ikon)
+  // ✅ Böngésző fül + mobil ikonok (stabil, szabványos)
   icons: {
     icon: [
       { url: "/favicon.ico" },
-      { url: "/favicon.png", type: "image/png", sizes: "512x512" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
     ],
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
-    shortcut: ["/favicon.ico"],
   },
 
+  // ✅ Megosztáskor megjelenő kártyakép (Messenger / FB / iMessage)
   openGraph: {
     type: "website",
     locale: "sk_SK",
