@@ -7,6 +7,7 @@ import MainNav from "./components/MainNav";
 import Footer from "./components/Footer";
 
 const GTM_ID = "GTM-MQMP3W2K";
+const GA_ID = "G-Y28F1XKP8N"; // a tiéd (a képed alapján)
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -113,7 +114,7 @@ export default function RootLayout({
         <meta name="format-detection" content="telephone=no" />
         <meta name="color-scheme" content="light dark" />
 
-        {/* ✅ Google Tag Manager - Next-kompatibilis */}
+        {/* ✅ Google Tag Manager */}
         <Script
           id="gtm-base"
           strategy="afterInteractive"
@@ -127,18 +128,26 @@ export default function RootLayout({
             `,
           }}
         />
+
+        {/* ✅ Google Analytics (GA4) – Next.js kompatibilis */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="ga4-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_ID}', { anonymize_ip: true });
+          `}
+        </Script>
       </head>
 
       <body
-        className={`
-          ${geistSans.variable}
-          ${geistMono.variable}
-          antialiased
-          bg-[#f5f7fb]
-          text-slate-900
-        `}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#f5f7fb] text-slate-900`}
       >
-        {/* ✅ GTM noscript - közvetlenül a body elején */}
+        {/* ✅ GTM noscript */}
         <noscript>
           <iframe
             src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
@@ -148,6 +157,7 @@ export default function RootLayout({
           />
         </noscript>
 
+        {/* ✅ Globális layout: navbar + content + footer */}
         <div className="relative min-h-screen flex flex-col">
           <MainNav />
           <main className="flex-1 relative">{children}</main>
