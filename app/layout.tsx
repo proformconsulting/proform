@@ -1,3 +1,4 @@
+// app/layout.tsx
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Script from "next/script";
@@ -5,9 +6,10 @@ import "./globals.css";
 
 import MainNav from "./components/MainNav";
 import Footer from "./components/Footer";
+import CookieBanner from "./components/CookieBanner";
 
 const GTM_ID = "GTM-MQMP3W2K";
-const GA_ID = "G-Y28F1XKP8N"; // a tiéd (a képed alapján)
+const GA_ID = "G-Y28F1XKP8N";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,15 +31,12 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://proformconsulting.sk"),
-
   title: {
     default: "ProForm Consulting – Koordinácia a riadenie stavebných projektov",
     template: "%s | ProForm Consulting",
   },
-
   description:
     "Kompletné riadenie stavebných projektov – od projektovej prípravy, VR vizualizácií, koordinácie profesií až po odovzdanie hotovej stavby. Stavebné štúdio ProForm Consulting.",
-
   keywords: [
     "ProForm Consulting",
     "stavebný projekt",
@@ -51,11 +50,9 @@ export const metadata: Metadata = {
     "Dunajská Streda",
     "projektovanie",
   ],
-
   authors: [{ name: "ProForm Consulting" }],
   creator: "ProForm Consulting",
   publisher: "ProForm Consulting",
-
   icons: {
     icon: [
       { url: "/favicon.ico" },
@@ -64,7 +61,6 @@ export const metadata: Metadata = {
     ],
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
   },
-
   openGraph: {
     type: "website",
     locale: "sk_SK",
@@ -82,7 +78,6 @@ export const metadata: Metadata = {
       },
     ],
   },
-
   twitter: {
     card: "summary_large_image",
     title: "ProForm Consulting – stavebné projektové & koordinačné štúdio",
@@ -90,7 +85,6 @@ export const metadata: Metadata = {
       "Komplexná koordinácia a riadenie výstavby, VR vizualizácie a stavebný manažment.",
     images: ["/og-cover.jpg"],
   },
-
   robots: {
     index: true,
     follow: true,
@@ -114,6 +108,25 @@ export default function RootLayout({
         <meta name="format-detection" content="telephone=no" />
         <meta name="color-scheme" content="light dark" />
 
+        {/* ✅ Consent Mode v2 – default DENIED (FONTOS: GTM/GA ELŐTT) */}
+        <Script
+          id="consent-default"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+
+              gtag('consent', 'default', {
+                ad_storage: 'denied',
+                analytics_storage: 'denied',
+                ad_user_data: 'denied',
+                ad_personalization: 'denied'
+              });
+            `,
+          }}
+        />
+
         {/* ✅ Google Tag Manager */}
         <Script
           id="gtm-base"
@@ -129,7 +142,7 @@ export default function RootLayout({
           }}
         />
 
-        {/* ✅ Google Analytics (GA4) – Next.js kompatibilis */}
+        {/* ✅ GA4 (gtag) – Consent Mode miatt nem fog sütit rakni, amíg nem engeded */}
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
           strategy="afterInteractive"
@@ -157,11 +170,14 @@ export default function RootLayout({
           />
         </noscript>
 
-        {/* ✅ Globális layout: navbar + content + footer */}
+        {/* ✅ Globális layout */}
         <div className="relative min-h-screen flex flex-col">
           <MainNav />
           <main className="flex-1 relative">{children}</main>
           <Footer />
+
+          {/* ✅ Cookie banner (HU/SK, Consent Mode v2 update) */}
+          <CookieBanner />
         </div>
       </body>
     </html>
