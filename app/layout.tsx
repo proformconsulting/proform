@@ -1,9 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 import MainNav from "./components/MainNav";
 import Footer from "./components/Footer";
+
+const GTM_ID = "GTM-MQMP3W2K";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -52,7 +55,6 @@ export const metadata: Metadata = {
   creator: "ProForm Consulting",
   publisher: "ProForm Consulting",
 
-  // ✅ Böngésző fül + mobil ikonok (stabil, szabványos)
   icons: {
     icon: [
       { url: "/favicon.ico" },
@@ -62,7 +64,6 @@ export const metadata: Metadata = {
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
   },
 
-  // ✅ Megosztáskor megjelenő kártyakép (Messenger / FB / iMessage)
   openGraph: {
     type: "website",
     locale: "sk_SK",
@@ -111,6 +112,21 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="color-scheme" content="light dark" />
+
+        {/* ✅ Google Tag Manager - Next-kompatibilis */}
+        <Script
+          id="gtm-base"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+              j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+              'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+              })(window,document,'script','dataLayer','${GTM_ID}');
+            `,
+          }}
+        />
       </head>
 
       <body
@@ -122,6 +138,16 @@ export default function RootLayout({
           text-slate-900
         `}
       >
+        {/* ✅ GTM noscript - közvetlenül a body elején */}
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+            height="0"
+            width="0"
+            style={{ display: "none", visibility: "hidden" }}
+          />
+        </noscript>
+
         <div className="relative min-h-screen flex flex-col">
           <MainNav />
           <main className="flex-1 relative">{children}</main>
