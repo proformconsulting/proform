@@ -286,7 +286,7 @@ export default function ProjektySk() {
 
           <div className="relative h-52 md:h-64 rounded-3xl overflow-hidden border border-[#c7d4f0] shadow">
             <Image
-              src="/services-vr.jpeg"
+              src="/projects-haz.jpeg"
               alt="VR náhľad projektu"
               fill
               className="object-cover"

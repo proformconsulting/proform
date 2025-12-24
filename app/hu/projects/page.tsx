@@ -307,7 +307,7 @@ export default function ProjectsHu() {
         <div className="max-w-6xl mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-10 items-center relative z-10">
           <div className="relative h-52 md:h-64 rounded-3xl overflow-hidden border border-[#c7d4f0] bg-white shadow-[0_18px_50px_rgba(148,163,184,0.5)]">
             <Image
-              src="/services-vr.jpeg"
+              src="/projects-haz.jpeg"
               alt="VR projektbejárás"
               fill
               className="object-cover"
@@ -385,7 +385,7 @@ export default function ProjectsHu() {
 
           <div className="relative h-52 md:h-64 rounded-3xl overflow-hidden border border-[#d0d7e6] bg-white shadow-[0_18px_50px_rgba(148,163,184,0.5)]">
             <Image
-              src="/services-team.jpeg"
+              src="/team-projects.jpeg"
               alt="Építési szakmai csapat"
               fill
               className="object-cover"
